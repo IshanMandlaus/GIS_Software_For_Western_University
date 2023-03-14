@@ -16,9 +16,16 @@ public class User {
     /** The user's password*/
     private String password;
     /** A list of all POIs created by the user*/
-    private ArrayList<POI> PointsOfInterest;
+    private ArrayList<POI> pointsOfInterest;
     /** A list of all POIs the user added to their favourites*/
     private ArrayList<POI> favourites;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.pointsOfInterest = new ArrayList<POI>();
+        this.favourites = new ArrayList<POI>();
+    }
 
     /**
      * Adds a POI to this user's list of favourites.
@@ -28,7 +35,7 @@ public class User {
      * @see POI
      */
     public void addToFavourites(POI fav){
-
+        this.favourites.add(fav);
     }
 
     /**
@@ -40,8 +47,8 @@ public class User {
      *
      * @see POI
      */
-    public void createPOI(int[] location, String name, String description){
-
+    public void createPOI(String name,int[] location, String description){
+        this.pointsOfInterest.add(new POI(false, name, description, location, 0));
     }
 
     /**
@@ -52,6 +59,6 @@ public class User {
      * @see POI
      */
     public void deletePOI(POI p){
-        this.PointsOfInterest.remove(p);
+        this.pointsOfInterest.remove(p);
     }
 }
