@@ -23,7 +23,7 @@ User guide:
 
 
 
-Login credentials:
+GUI credentials:
     Developer
         Username: admin
         Password: password
@@ -34,7 +34,7 @@ Login credentials:
 
 
 How to enter developer editor mode:
-    Login using the Developer credentials shown above.
+    GUI using the Developer credentials shown above.
 
 
 Other useful stuff:
