@@ -39,6 +39,8 @@ public class GUI extends JFrame{
     private JCheckBox collabLayerCheckbox;
     private JCheckBox usercreatedLayerCheckbox;
     private JList list1;
+    private Layer builtinPOIs;
+    private User currUser;
 
     private static final String mapPanelCardName = "mapPanel";
     private static final String loginPanelCardName = "loginPanel";
@@ -46,6 +48,8 @@ public class GUI extends JFrame{
     public GUI(String title) throws HeadlessException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
+        builtinPOIs = new Layer("builtIn", 0);
+        currUser = new User("paul", "password");
 
         setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -123,6 +127,14 @@ public class GUI extends JFrame{
                     poiMenu.setVisible(true);
                     poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
                 }
+            }
+        });
+        map.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                POI newPOI = new POI(true, "name", "desc", getMousePosition());
+                currUser.createPOI(newPOI);
             }
         });
     }

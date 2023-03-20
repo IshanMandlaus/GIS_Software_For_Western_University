@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -47,8 +49,8 @@ public class User {
      *
      * @see POI
      */
-    public void createPOI(String name,int[] location, String description){
-        this.pointsOfInterest.add(new POI(false, name, description, location, 0));
+    public void createPOI(POI poi){
+        this.pointsOfInterest.add(poi);
     }
 
     /**
