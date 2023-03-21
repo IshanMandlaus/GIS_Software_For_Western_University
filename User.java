@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -41,14 +43,12 @@ public class User {
     /**
      * Creates a new POI with the user's desired details.
      *
-     * @param location The location of the POI on the map.
-     * @param name The desired name of the POI.
-     * @param description A short description of the POI.
+     * 
      *
      * @see POI
      */
-    public void createPOI(String name,int[] location, String description){
-        this.pointsOfInterest.add(new POI(false, name, description, location, 0));
+    public void createPOI(POI poi){
+        this.pointsOfInterest.add(poi);
     }
 
     /**
