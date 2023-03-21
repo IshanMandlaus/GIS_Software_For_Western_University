@@ -12,4 +12,10 @@ public class POI {
         this.location = location;
         this.layerID = layerID;
     }
+
+
+
+
+
+
 }

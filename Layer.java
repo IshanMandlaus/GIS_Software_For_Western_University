@@ -11,19 +11,22 @@ public class Layer {
         this.id = id;
     }
 
-    public void hideLayer(){
+    public void hideLayer() {
+
 
     }
 
-    public void showLayer(){
+    public void showLayer() {
+
+
 
     }
 
-    public void addPOI(){
+    public void addPOI() {
 
     }
 
-    public void removePOI(){
+    public void removePOI() {
 
     }
 }
