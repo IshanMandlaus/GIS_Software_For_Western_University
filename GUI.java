@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
 public class GUI extends JFrame{
     private JLabel userProfileImage;
     private JButton loginButton;
@@ -38,11 +39,17 @@ public class GUI extends JFrame{
     private JCheckBox collabLayerCheckbox;
     private JCheckBox usercreatedLayerCheckbox;
     private JList list1;
+    private Layer builtinPOIs;
+    private User currUser;
+
     private static final String mapPanelCardName = "mapPanel";
     private static final String loginPanelCardName = "loginPanel";
 
     public GUI(String title) throws HeadlessException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
+
+        builtinPOIs = new Layer("builtIn", 0);
+        currUser = new User("paul", "password");
 
         setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +61,7 @@ public class GUI extends JFrame{
         poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
         this.setContentPane(mainPanel);
         this.pack();
-        //ImageIcon logo = new ImageIcon("Icons/logo.png");
+
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -101,7 +108,6 @@ public class GUI extends JFrame{
                 if(mapMenu.isVisible()){
                     mapMenu.setVisible(false);
                     mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
-
                 }
                 else {
                     mapMenu.setVisible(true);
@@ -123,6 +129,14 @@ public class GUI extends JFrame{
                 }
             }
         });
+        map.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                POI newPOI = new POI(true, "name", "desc", getMousePosition());
+                currUser.createPOI(newPOI);
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -139,4 +153,5 @@ public class GUI extends JFrame{
     private boolean isValidCredentials(String username, char[] password){
         return true;
     }
+
 }
