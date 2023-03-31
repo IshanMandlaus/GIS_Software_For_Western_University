@@ -14,11 +14,11 @@ public class Layer {
     }
 
     public void hideLayer(){
-
+        for (POI p : POIList) p.setVisible(false);
     }
 
     public void showLayer(){
-
+        for (POI p : POIList) p.setVisible(true);
     }
 
     public void addPOI(POI poi){

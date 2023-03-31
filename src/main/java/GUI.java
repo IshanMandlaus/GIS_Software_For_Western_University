@@ -155,8 +155,7 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                POI poi = new POI(true, "poi", "desc", e.getPoint());
-                map.add(poi);
+                new POI(true, "poi", "desc", (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(),(e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
                 map.repaint();
             }
         });
@@ -165,6 +164,9 @@ public class GUI extends JFrame{
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                for(Component c : map.getComponents()){
+                    if (c.getClass() == POI.class) ((POI) c).updatePosition();
+                }
                 map.repaint();
             }
         });
@@ -179,7 +181,12 @@ public class GUI extends JFrame{
 
     public static void main(String[] args) {
         GUI frame = new GUI("C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.");
-        frame.setMinimumSize(new Dimension(1080, 720));
+
+        GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = graphics.getDefaultScreenDevice();
+        frame.setResizable(false);
+        device.setFullScreenWindow(frame);
+
         frame.setVisible(true);
         ImageIcon logo = new ImageIcon("Icons/logo.png");
         frame.setIconImage(logo.getImage());
