@@ -3,6 +3,7 @@ package main.java;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 
 public class GUI extends JFrame{
     private JLabel userProfileImage;
@@ -49,6 +50,9 @@ public class GUI extends JFrame{
     private JButton cancelButton;
     private JPanel mapContainer;
     private JScrollPane mapScrollPane;
+    private JCheckBox builtinCheckbox;
+    private JComboBox layerCombobox;
+    private JLabel poiCreationLocationPrompt;
     private final Layer builtinPOIs;
     private final User currUser;
     private static final String mapPanelCardName = "mapPanel";
@@ -130,7 +134,7 @@ public class GUI extends JFrame{
         mapsMenuCloseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (poiCreateMode == false) {
+                if (!poiCreateMode) {
                     super.mouseClicked(e);
                     if (mapMenu.isVisible()) {
                         mapMenu.setVisible(false);
@@ -145,7 +149,7 @@ public class GUI extends JFrame{
         poiMenuCloseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (poiCreateMode == false) {
+                if (!poiCreateMode) {
                     super.mouseClicked(e);
                     if (poiMenu.isVisible()) {
                         poiMenu.setVisible(false);
@@ -160,9 +164,15 @@ public class GUI extends JFrame{
         map.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (poiCreateMode == true) {
+                if (poiCreateMode) {
                     super.mouseClicked(e);
-                    new POI(true, thisPoiName, thisRmNum, thisDescription, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
+                    new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
+
+                    // Clear text fields in the creation menu after the POI is created
+                    poiRoomNumber.setText("");
+                    poiDescription.setText("");
+                    poiName.setText("");
+
                     map.repaint();
                     poiCreateMode = false;
                     mapMenu.setVisible(true);
@@ -192,27 +202,33 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String thisPoiName = poiName.getText();
+                thisPoiName = poiName.getText();
                 try {
-                    int thisRmNum = Integer.valueOf(poiRoomNumber.getText());
-                }
-                catch (Exception x) {
-                    // room number must be a number
-                }
-                String thisDescription = poiDescription.getText();
+                    thisRmNum = Integer.parseInt(poiRoomNumber.getText());
+                    thisDescription = poiDescription.getText();
 
-                if (thisPoiName == "" || thisDescription == "") {
-                    // text fields can't be blank
+                    if (Objects.equals(thisPoiName, "") || Objects.equals(thisDescription, "")) {
+                        // text fields can't be blank
+                        JOptionPane.showMessageDialog(poiCreationPanel, "Invalid Name or Description:\nAll fields must be filled.", "Error" ,JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if (thisRmNum <= 0) {
+                        // room number can't be equal to zero
+                        JOptionPane.showMessageDialog(poiCreationPanel, "Invalid Room Number:\nRoom number can't be less than or equal to zero", "Error" ,JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
+                        // Return to the map in POI creation mode, with the menus disabled
+                        mapMenu.setVisible(false);
+                        poiMenu.setVisible(false);
+                        poiCreateMode = true;
+                        cardLayout.show(mainPanel, mapPanelCardName);
+                        JOptionPane.showMessageDialog(mapPanel, "Click on the map where you would like your new POI to be placed!", "Select POI Location", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-                else if (thisRmNum == 0) {
-                    // room number can't be equal to zero
+                catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(poiCreationPanel, "Invalid Room Number:\nRoom number must be numeric", "Error" ,JOptionPane.ERROR_MESSAGE);
+                    poiRoomNumber.setText("");
                 }
-                else {
-                    cardLayout.show(mainPanel, mapPanelCardName);
-                    mapMenu.setVisible(false);
-                    poiMenu.setVisible(false);
-                    poiCreateMode = true;
-                }
+
             }
         });
         cancelButton.addMouseListener(new MouseAdapter() {
@@ -220,6 +236,16 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 cardLayout.show(mainPanel, mapPanelCardName);
+                // Clear text fields when a POI is created
+                poiRoomNumber.setText("");
+                poiDescription.setText("");
+                poiName.setText("");
+            }
+        });
+        builtinCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                layerCombobox.setVisible(builtinCheckbox.isSelected());
             }
         });
     }
