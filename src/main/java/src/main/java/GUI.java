@@ -1,4 +1,4 @@
-package src.main.java;
+package main.java.src.main.java;
 
 import org.json.simple.parser.ParseException;
 
@@ -201,10 +201,9 @@ public class GUI extends JFrame{
                 cardLayout.show(mainPanel, poiCreationCardName);
             }
         });
-        submitButton.addMouseListener(new MouseAdapter() {
+        submitButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent actionEvent) {
                 thisPoiName = poiName.getText();
                 try {
                     thisRmNum = Integer.parseInt(poiRoomNumber.getText());
@@ -234,10 +233,9 @@ public class GUI extends JFrame{
 
             }
         });
-        cancelButton.addMouseListener(new MouseAdapter() {
+        cancelButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void actionPerformed(ActionEvent actionEvent) {
                 cardLayout.show(mainPanel, mapPanelCardName);
                 // Clear text fields when a POI is created
                 poiRoomNumber.setText("");
