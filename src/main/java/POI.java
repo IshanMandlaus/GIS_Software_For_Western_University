@@ -6,16 +6,18 @@ import java.awt.*;
 public class POI extends JButton {
     private final boolean builtin;
     private final String name;
+    private int roomNumber;
     private final String description;
     private int layerID;
     private double relative_x;
     private double relative_y;
     private JLabel parent;
 
-    public POI(boolean builtin, String name, String description, double relative_x, double relative_y, JLabel parent) {
+    public POI(boolean builtin, String name, int rmNum, String description, double relative_x, double relative_y, JLabel parent) {
         super("POI");
         this.builtin = builtin;
         this.name = name;
+        this.roomNumber = rmNum;
         this.description = description;
         this.relative_x = relative_x;
         this.relative_y = relative_y;

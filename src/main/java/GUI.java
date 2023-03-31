@@ -37,10 +37,14 @@ public class GUI extends JFrame{
     private JCheckBox collabLayerCheckbox;
     private JCheckBox usercreatedLayerCheckbox;
     private JList list1;
+    private boolean poiCreateMode = false;
+    private String thisPoiName;
+    private int thisRmNum;
+    private String thisDescription;
     private JPanel poiCreationPanel;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField poiName;
+    private JTextField poiRoomNumber;
+    private JTextField poiDescription;
     private JButton submitButton;
     private JButton cancelButton;
     private JPanel mapContainer;
@@ -154,9 +158,14 @@ public class GUI extends JFrame{
         map.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                new POI(true, "poi", "desc", (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(),(e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
-                map.repaint();
+                if (poiCreateMode == true) {
+                    super.mouseClicked(e);
+                    new POI(true, thisPoiName, thisRmNum, thisDescription, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
+                    map.repaint();
+                    poiCreateMode = false;
+                    mapMenu.setVisible(true);
+                    poiMenu.setVisible(true);
+                }
             }
         });
         mapContainer.addComponentListener(new ComponentAdapter() {
@@ -175,6 +184,26 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 cardLayout.show(mainPanel, poiCreationCardName);
+            }
+        });
+        submitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cardLayout.show(mainPanel, mapPanelCardName);
+                mapMenu.setVisible(false);
+                poiMenu.setVisible(false);
+                poiCreateMode = true;
+                String thisPoiName = poiName.getText();
+                int thisRmNum = Integer.valueOf(poiRoomNumber.getText());
+                String thisDescription = poiDescription.getText();
+            }
+        });
+        cancelButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cardLayout.show(mainPanel, mapPanelCardName);
             }
         });
     }
