@@ -1,8 +1,11 @@
-package main.java;
+package src.main.java;
+
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Objects;
 
 public class GUI extends JFrame{
@@ -60,10 +63,10 @@ public class GUI extends JFrame{
     private static final String poiCreationCardName = "poiCreationPanel";
     private String currMap;
 
-    public GUI(String title) throws HeadlessException {
+    public GUI(String title) throws HeadlessException, IOException, ParseException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
-        builtinPOIs = new Layer("builtIn", 0);
+        builtinPOIs = new Layer("builtIn", 0,map);
         currUser = new User("paul", "password");
         currMap = "Maps/MC-BF/MC-BF-1.png";
 
@@ -166,8 +169,8 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (poiCreateMode) {
                     super.mouseClicked(e);
-                    new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
-
+                    //POI(int builtin, String name, int rmNum, String description, int buildingID, int floorID, int layerID, double relative_x, double relative_y, JLabel parent)
+                    new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,1,3,3, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
                     // Clear text fields in the creation menu after the POI is created
                     poiRoomNumber.setText("");
                     poiDescription.setText("");
@@ -250,7 +253,7 @@ public class GUI extends JFrame{
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ParseException {
         GUI frame = new GUI("C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.");
 
         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
