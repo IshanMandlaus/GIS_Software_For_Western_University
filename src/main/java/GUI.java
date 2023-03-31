@@ -2,10 +2,9 @@ package src.main.java;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class GUI extends JFrame{
     private JLabel userProfileImage;
@@ -40,16 +39,20 @@ public class GUI extends JFrame{
     private JCheckBox collabLayerCheckbox;
     private JCheckBox usercreatedLayerCheckbox;
     private JList list1;
+    private JPanel mapContainer;
+    private JScrollPane mapScrollPane;
     private final Layer builtinPOIs;
     private final User currUser;
     private static final String mapPanelCardName = "mapPanel";
     private static final String loginPanelCardName = "loginPanel";
+    private String currMap;
 
     public GUI(String title) throws HeadlessException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
         builtinPOIs = new Layer("builtIn", 0);
         currUser = new User("paul", "password");
+        currMap = "Maps/MC-BF/MC-BF-1.png";
 
         setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,6 +62,14 @@ public class GUI extends JFrame{
         afarThumbnail.setIcon(resizedImageIcon("Thumbnails/AFAR.jfif", 100, 100));
         mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
         poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
+
+        mapContainer.setLayout(null);
+        mapContainer.setBounds(0, 0, mapScrollPane.getWidth(), mapScrollPane.getHeight());
+        map = new JLabel();
+        map.setBounds(0, 0, 1920, 1080);
+        mapContainer.add(map, 0);
+
+
         this.setContentPane(mainPanel);
         this.pack();
 
@@ -86,21 +97,24 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                map.setIcon(new ImageIcon("Maps/MC-BF/MC-BF-1.png"));
+                currMap = "Maps/MC-BF/MC-BF-1.png";
+                map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
         westminsterhallThumbnail.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                map.setIcon(new ImageIcon("Maps/WH-BF/WH-BF-1.png"));
+                currMap = "Maps/WH-BF/WH-BF-1.png";
+                map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
         afarThumbnail.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                map.setIcon(new ImageIcon("Maps/AFAR-BF/AFAR-BF-1.png"));
+                currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
+                map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
 
@@ -136,8 +150,17 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                POI newPOI = new POI(true, "name", "desc", getMousePosition());
-                currUser.createPOI(newPOI);
+                POI poi = new POI(true, "poi", "desc", e.getPoint());
+                map.add(poi);
+                map.repaint();
+            }
+        });
+        mapContainer.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                map.repaint();
             }
         });
     }
@@ -151,7 +174,7 @@ public class GUI extends JFrame{
     }
 
     private ImageIcon resizedImageIcon(String imagePath, int width, int height){
-        return new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        return new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
     private boolean isValidCredentials(String username, char[] password){

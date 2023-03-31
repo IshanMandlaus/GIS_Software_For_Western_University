@@ -10,11 +10,11 @@ public class POI extends JButton {
     private int layerID;
 
     public POI(boolean builtin, String name, String description, Point location) {
-        super("button");
+        super("POI");
         this.builtin = builtin;
         this.name = name;
         this.description = description;
-        this.setLocation(location);
+        this.setBounds(location.x, location.y, 25, 25);
         this.setVisible(true);
 
 
