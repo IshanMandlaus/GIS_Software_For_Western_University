@@ -1,4 +1,4 @@
-package src.main.java;
+package main.java;
 
 import javax.swing.*;
 import java.awt.*;
@@ -130,28 +130,30 @@ public class GUI extends JFrame{
         mapsMenuCloseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if(mapMenu.isVisible()){
-                    mapMenu.setVisible(false);
-                    mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
-                }
-                else {
-                    mapMenu.setVisible(true);
-                    mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
+                if (poiCreateMode == false) {
+                    super.mouseClicked(e);
+                    if (mapMenu.isVisible()) {
+                        mapMenu.setVisible(false);
+                        mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
+                    } else {
+                        mapMenu.setVisible(true);
+                        mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
+                    }
                 }
             }
         });
         poiMenuCloseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if(poiMenu.isVisible()){
-                    poiMenu.setVisible(false);
-                    poiMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
-                }
-                else {
-                    poiMenu.setVisible(true);
-                    poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
+                if (poiCreateMode == false) {
+                    super.mouseClicked(e);
+                    if (poiMenu.isVisible()) {
+                        poiMenu.setVisible(false);
+                        poiMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
+                    } else {
+                        poiMenu.setVisible(true);
+                        poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
+                    }
                 }
             }
         });
@@ -195,8 +197,20 @@ public class GUI extends JFrame{
                 poiMenu.setVisible(false);
                 poiCreateMode = true;
                 String thisPoiName = poiName.getText();
-                int thisRmNum = Integer.valueOf(poiRoomNumber.getText());
+                try {
+                    int thisRmNum = Integer.valueOf(poiRoomNumber.getText());
+                }
+                catch (Exception x) {
+                    // room number must be a number
+                }
                 String thisDescription = poiDescription.getText();
+
+                if (thisPoiName == "" || thisDescription == "") {
+                    // text fields can't be blank
+                }
+                else if (thisRmNum == 0) {
+                    // room number can't be equal to zero
+                }
             }
         });
         cancelButton.addMouseListener(new MouseAdapter() {
