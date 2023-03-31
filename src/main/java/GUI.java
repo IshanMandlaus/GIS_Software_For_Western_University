@@ -192,10 +192,6 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                cardLayout.show(mainPanel, mapPanelCardName);
-                mapMenu.setVisible(false);
-                poiMenu.setVisible(false);
-                poiCreateMode = true;
                 String thisPoiName = poiName.getText();
                 try {
                     int thisRmNum = Integer.valueOf(poiRoomNumber.getText());
@@ -210,6 +206,12 @@ public class GUI extends JFrame{
                 }
                 else if (thisRmNum == 0) {
                     // room number can't be equal to zero
+                }
+                else {
+                    cardLayout.show(mainPanel, mapPanelCardName);
+                    mapMenu.setVisible(false);
+                    poiMenu.setVisible(false);
+                    poiCreateMode = true;
                 }
             }
         });
