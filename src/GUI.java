@@ -90,15 +90,36 @@ public class GUI extends JFrame{
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (isValidCredentials(usernameField.getText(), passwordField.getPassword())) {
 
-                    if (isValidCredentials(usernameField.getText(), passwordField.getPassword())) {
-
-                        usernameField.setText("");
-                        passwordField.setText("");
-                        cardLayout.show(mainPanel, mapPanelCardName);
-                    }
+                String username = usernameField.getText();
+                char[] passwordChars = passwordField.getPassword();
+                String password = new String(passwordChars);
+                boolean check = false;
+                try {
+                    check = User.isValidCredentials(username, password.toCharArray());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
+
+                if (check) {
+                    usernameField.setText("");
+                    passwordField.setText("");
+                    cardLayout.show(mainPanel, mapPanelCardName);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Invalid username or password");
+                }
+
+
+//                if (isValidCredentials(usernameField.getText(), passwordField.getPassword())) {
+//
+//                    if (isValidCredentials(usernameField.getText(), passwordField.getPassword())) {
+//
+//                        usernameField.setText("");
+//                        passwordField.setText("");
+//                        cardLayout.show(mainPanel, mapPanelCardName);
+//                    }
+//                }
             }
         });
         logoutButton.addActionListener(new ActionListener() {

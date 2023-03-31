@@ -1,4 +1,13 @@
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
 
 /**
  * The class that represents a CUAMPES-ACGISANT user. It allows a user to have login information, a list of POIs,
@@ -59,4 +68,37 @@ public class User {
     public void deletePOI(POI p){
         this.pointsOfInterest.remove(p);
     }
+
+    public static boolean isValidCredentials(String username, char[] password) throws IOException {
+        JSONParser parser = new JSONParser();
+        boolean validUser = false;
+
+        try {
+            Object obj = parser.parse(new FileReader("jsonfiles/users.json"));
+            JSONObject jsonObject = (JSONObject) obj;
+            JSONArray users = (JSONArray) jsonObject.get("users");
+
+            Iterator<JSONObject> iterator = users.iterator();
+
+            while (iterator.hasNext()) {
+                JSONObject user = iterator.next();
+                String uName = (String) user.get("username");
+                JSONArray passwordArr = (JSONArray) user.get("password");
+                char[] uPass = new char[passwordArr.size()];
+
+                for (int i = 0; i < passwordArr.size(); i++) {
+                    uPass[i] = ((String) passwordArr.get(i)).charAt(0);
+                }
+
+                if (username.equals(uName) && Arrays.equals(password, uPass)) {
+                    validUser = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return validUser;
+    }
 }
+
