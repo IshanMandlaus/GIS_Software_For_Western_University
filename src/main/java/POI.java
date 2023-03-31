@@ -33,11 +33,10 @@ public class POI extends JButton {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
                 Object[] possibilities = {"Add To Favourites", "Delete"};
                 String s = (String)JOptionPane.showInputDialog(
                         parent,
-                        description,
+                        "Room " + rmNum + "\n" + description,
                         name,
                         JOptionPane.PLAIN_MESSAGE,
                         icon,
