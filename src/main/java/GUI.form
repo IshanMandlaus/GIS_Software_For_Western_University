@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.java.GUI">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="src.main.java.GUI">
   <grid id="d3032" binding="mainPanel" layout-manager="CardLayout" hgap="0" vgap="0" show="4b310">
     <constraints>
       <xy x="52" y="20" width="1210" height="1168"/>
@@ -434,6 +434,7 @@
               </grid>
             </constraints>
             <properties>
+              <background color="-16733696"/>
               <text value="Submit"/>
             </properties>
           </component>
@@ -449,6 +450,7 @@
               </grid>
             </constraints>
             <properties>
+              <background color="-65536"/>
               <text value="Cancel"/>
             </properties>
           </component>
