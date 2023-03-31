@@ -23,7 +23,7 @@ User guide:
 
 
 
-GUI credentials:
+main.java.GUI credentials:
     Developer
         Username: admin
         Password: password
@@ -34,7 +34,7 @@ GUI credentials:
 
 
 How to enter developer editor mode:
-    GUI using the Developer credentials shown above.
+    main.java.GUI using the Developer credentials shown above.
 
 
 Other useful stuff:

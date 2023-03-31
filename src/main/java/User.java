@@ -1,4 +1,4 @@
-package src.main.java;
+package main.java;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @version 1.0
  *
- * @see POI
+ * @see
  */
 public class User {
     /** The user's username*/

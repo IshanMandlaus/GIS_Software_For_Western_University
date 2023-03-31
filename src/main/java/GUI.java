@@ -1,10 +1,8 @@
-package src.main.java;
+package main.java;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public class GUI extends JFrame{
     private JLabel userProfileImage;
@@ -39,12 +37,19 @@ public class GUI extends JFrame{
     private JCheckBox collabLayerCheckbox;
     private JCheckBox usercreatedLayerCheckbox;
     private JList list1;
+    private JPanel poiCreationPanel;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JButton submitButton;
+    private JButton cancelButton;
     private JPanel mapContainer;
     private JScrollPane mapScrollPane;
     private final Layer builtinPOIs;
     private final User currUser;
     private static final String mapPanelCardName = "mapPanel";
     private static final String loginPanelCardName = "loginPanel";
+    private static final String poiCreationCardName = "poiCreationPanel";
     private String currMap;
 
     public GUI(String title) throws HeadlessException {
@@ -161,6 +166,13 @@ public class GUI extends JFrame{
                 super.componentResized(e);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
                 map.repaint();
+            }
+        });
+        createNewPOIButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cardLayout.show(mainPanel, poiCreationCardName);
             }
         });
     }
