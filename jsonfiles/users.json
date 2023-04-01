@@ -1,1 +1,28 @@
-[{"username": "mansar33", "password": "password"}, {"username": "abao5", "password": "password"}, {"username": "smahmo43", "password": "password"}, {"username":  "pmoore44", "password":  "password"}, {"username":  "imandlau", "password":  "password"}]
+{
+  "users": [
+    {
+      "username": "duckmanservos",
+      "password": ["p","a", "s", "s", "w", "o", "r", "d"]
+    },
+    {
+      "username": "mansar33",
+      "password": ["p","a", "s", "s", "w", "o", "r", "d"]
+    },
+    {
+      "username": "abao5",
+      "password": ["p","a", "s", "s", "w", "o", "r", "d"]
+    },
+    {
+      "username": "smahmo43",
+      "password": ["p","a", "s", "s", "w", "o", "r", "d"]
+    },
+    {
+      "username": "pmoore44",
+      "password": ["p","a", "s", "s", "w", "o", "r", "d"]
+    },
+    {
+      "username": "imandlau",
+      "password": ["p","a", "s", "s", "w", "o", "r", "d"]
+    }
+  ]
+}
