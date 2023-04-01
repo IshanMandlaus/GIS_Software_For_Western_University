@@ -60,7 +60,7 @@ public class GUI extends JFrame{
     private JScrollPane mapScrollPane;
     private JCheckBox builtinCheckbox;
     private JComboBox layerCombobox;
-    private JRadioButton cRadioButton;
+    private JButton userHelpButton;
     private JLabel poiCreationLocationPrompt;
     private final Layer builtinPOIs;
     private final User currUser;
