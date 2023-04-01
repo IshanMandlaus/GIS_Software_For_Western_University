@@ -61,6 +61,7 @@ public class GUI extends JFrame{
     private JCheckBox builtinCheckbox;
     private JComboBox layerCombobox;
     private JButton userHelpButton;
+    private JLabel userLoginHelp;
     private JLabel poiCreationLocationPrompt;
     private final Layer builtinPOIs;
     private final User currUser;
@@ -84,6 +85,7 @@ public class GUI extends JFrame{
         afarThumbnail.setIcon(resizedImageIcon("Thumbnails/AFAR.jfif", 100, 100));
         mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
         poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
+        userLoginHelp.setIcon(resizedImageIcon("Icons/help.png", 40, 40));
 
         mapContainer.setLayout(null);
         mapContainer.setBounds(0, 0, mapScrollPane.getWidth(), mapScrollPane.getHeight());
@@ -334,6 +336,13 @@ public class GUI extends JFrame{
             }
         });
 
+        userLoginHelp.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JOptionPane.showMessageDialog(null, "Help: \nC.U.A.M.P.E.S.-A.C.G.I.S.A.N.T. is a campus navigational aid with many built-in features to optimize the user experience. \nLogin with username and password.");
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
