@@ -343,6 +343,13 @@ public class GUI extends JFrame{
                 JOptionPane.showMessageDialog(null, "Help: \nC.U.A.M.P.E.S.-A.C.G.I.S.A.N.T. is a campus navigational aid with many built-in features to optimize the user experience. \nLogin with username and password.");
             }
         });
+        userHelpButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                JOptionPane.showMessageDialog(null, "How to use C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.: \nUse the maps bar on the left side to change buildings. Below that is the log out button, which takes the user back to the login screen. \nThe map in the center of the GUI can be scrolled through using the mouse and scroll bars. \nActive POIs are listed on the right side menu. The Create New POI button allows the user to create their own POI, provided they offer their own POI name, room number and description. The checkboxes underneath that button filter which categories of POIs are currently visible.");
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
