@@ -12,14 +12,6 @@ import javax.swing.*;
 public class Layer {
     private final String name;
     private final ArrayList<POI> POIList;
-    private final int CLASSROOM = 1;
-    private final int WASHROOM = 2;
-    private final int RES = 3;
-    private final int RESTROOM = 4;
-    private final int STAIRS = 5;
-    private final int ELEVATOR = 6;
-    private final int EXIT = 7;
-    private final int OTHER = 8;
     private JLabel parent;
     long floorID, buildingID, layerID; // id = 0 is user created POIs
 
@@ -55,8 +47,13 @@ public class Layer {
         newPOI.put("x", poi.getRelativeX());
         newPOI.put("y", poi.getRelativeY());
         FileWriter file = new FileWriter("jsonfiles/POI.json");
-        file.write(newPOI.toJSONString());
-        file.flush();
+        try {
+            file.write(newPOI.toJSONString());
+            file.flush();
+        }
+        catch (Exception e) {
+            ;
+        }
     }
 
     public void removePOI(POI poi) throws IOException, ParseException, IOException {

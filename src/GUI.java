@@ -212,6 +212,7 @@ public class GUI extends JFrame{
                 super.mouseClicked(e);
                 currMap = "Maps/MC-BF/MC-BF-1.png";
                 setBuilding(middlesex);
+                currBuilding = middlesex;
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -221,6 +222,7 @@ public class GUI extends JFrame{
                 super.mouseClicked(e);
                 currMap = "Maps/WH-BF/WH-BF-1.png";
                 setBuilding(westminsterHall);
+                currBuilding = westminsterHall;
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -230,6 +232,7 @@ public class GUI extends JFrame{
                 super.mouseClicked(e);
                 currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
                 setBuilding(afar);
+                currBuilding = afar;
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -269,7 +272,13 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (poiCreateMode) {
                     super.mouseClicked(e);
-                    new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,1,3,3, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
+                    POI thisPoi = new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,1,3,3, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
+                    try {
+                        currFloor.getLayer(6).addPOI(thisPoi);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                     // Clear text fields in the creation menu after the POI is created
                     poiRoomNumber.setText("");
                     poiDescription.setText("");
@@ -360,7 +369,7 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                JOptionPane.showMessageDialog(null, "How to use C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.: \nUse the maps bar on the left side to change buildings. Below that is the log out button, which takes the user back to the login screen. \nThe map in the center of the GUI can be scrolled through using the mouse and scroll bars. \nActive POIs are listed on the right side menu. The Create New POI button allows the user to create their own POI, provided they offer their own POI name, room number and description. The checkboxes underneath that button filter which categories of POIs are currently visible.");
+                JOptionPane.showMessageDialog(null, "How to use C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.: \nUse the maps bar on the left side to change buildings. Below that is the log out button, which takes the user back to the login screen. \nThe map in the center of the GUI can be scrolled through using the mouse and scroll bars. \nActive POIs are listed on the right side menu. \nThe Create New POI button allows the user to create their own POI, provided they offer their own POI name, room number and description. \nThe checkboxes underneath that button filter which categories of POIs are currently visible.");
             }
         });
     }
