@@ -6,6 +6,14 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.Objects;
 
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 public class GUI extends JFrame{
     private JLabel userProfileImage;
     private JButton loginButton;
@@ -61,7 +69,7 @@ public class GUI extends JFrame{
     private static final String poiCreationCardName = "poiCreationPanel";
     private String currMap;
 
-    public GUI(String title) throws HeadlessException, IOException, ParseException {
+    public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
         builtinPOIs = new Layer("builtIn", 0,1, 1, map);
@@ -85,7 +93,45 @@ public class GUI extends JFrame{
         //////////////////////////////FREE YE///////////////////////////////////////////////////////////////////////////
         int offset = 11111-11111+11111-11111+11111-11111+11111-11111+11111-11111+11111-11110;///////////////////////////
         //////////////////////////////INITIALIZE 3 BUILDING OBJECTS/////////////////////////////////////////////////////
-        Building middlesex = new Building("Middlesex College", 5, 1, map);
+        /*///////////////////////////////////////////
+        $$\           $$\     $$\ $$\                                       $$\
+        $$ |          $$ |    $$ |\__|                                      \__|
+                $$ | $$$$$$\  $$ |    $$ |$$\ $$$$$$\$$$$\   $$$$$$\  $$\  $$\  $$\ $$\  $$$$$$\   $$$$$$\
+        $$ |$$  __$$\ $$ |    $$ |$$ |$$  _$$  _$$\ $$  __$$\ $$ | $$ | $$ |$$ |$$  __$$\ $$  __$$\
+        $$ |$$ /  $$ |$$ |    $$ |$$ |$$ / $$ / $$ |$$$$$$$$ |$$ | $$ | $$ |$$ |$$ |  \__|$$$$$$$$ |
+                $$ |$$ |  $$ |$$ |    $$ |$$ |$$ | $$ | $$ |$$   ____|$$ | $$ | $$ |$$ |$$ |      $$   ____|
+                $$ |\$$$$$$  |$$ |$$\ $$ |$$ |$$ | $$ | $$ |\$$$$$$$\ \$$$$$\$$$$  |$$ |$$ |      \$$$$$$$\
+\__| \______/ \__|$  |\__|\__|\__| \__| \__| \_______| \_____\____/ \__|\__|       \_______|
+                  \_/
+                */
+        /////////////////////////////////////////////////////////////////////////////////////////
+        AudioInputStream audioStream = null;
+        try {
+            File file = new File("Icons/li.wav");
+            audioStream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+
+            clip.open(audioStream);
+            clip.start();
+            //String response = sc.next(); // I don't understand why you are using Scanner!
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            System.err.println(ex);
+        }
+        finally {
+            try {
+                if (audioStream != null) {
+                    audioStream.close();
+                }
+            }
+            catch (IOException ex) {
+                System.err.println(ex);
+            }
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                Building middlesex = new Building("Middlesex College", 5, 1, map);
         Building westminsterHall = new Building("Westminster Hall", 4, 2, map);
         Building afar = new Building("Avian Research", 2, 3, map);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -303,7 +349,7 @@ public class GUI extends JFrame{
         });
     }
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         GUI frame = new GUI("C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.");
 
         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
