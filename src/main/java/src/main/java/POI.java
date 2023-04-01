@@ -10,23 +10,22 @@ public class POI extends JButton {
     private String name;
     private long roomNumber;
     private String description;
-    private long layerID;
-    private long buildingID;
-    private long floorID;
     private double relative_x;
     private double relative_y;
     private JLabel parent;
     private ImageIcon icon;
 
-    public POI(boolean builtin, String name, long rmNum, String description, long buildingID, long floorID, long layerID, double relative_x, double relative_y, JLabel parent) {
+    long floorID, buildingID, layerID;
+
+    public POI(boolean builtin, String name, long roomNumber, String description, long buildingID, long floorID, long layerID, double relative_x, double relative_y, JLabel parent) {
         super("");
         this.builtin = builtin;
         this.name = name;
-        this.roomNumber = rmNum;
+        this.roomNumber = roomNumber;
         this.description = description;
-        this.layerID = layerID;
         this.buildingID = buildingID;
         this.floorID = floorID;
+        this.layerID = layerID;
         this.relative_x = relative_x;
         this.relative_y = relative_y;
         this.parent = parent;
@@ -41,7 +40,7 @@ public class POI extends JButton {
                 Object[] possibilities = {"Add To Favourites", "Delete"};
                 String s = (String)JOptionPane.showInputDialog(
                         parent,
-                        "Room " + rmNum + "\n" + description,
+                        "Room " + roomNumber + "\n" + description,
                         name,
                         JOptionPane.PLAIN_MESSAGE,
                         icon,
@@ -54,39 +53,38 @@ public class POI extends JButton {
     public void updatePosition(){
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
     }
-
-    public void setLayerID(int layerID) {
+    public void setLayerID(long layerID) {
         this.layerID = layerID;
     }
 
-    public Object getBuiltin() {
+    public Boolean getBuiltin() {
         return builtin;
     }
-
-    public Object getDescription() {
+    public String getName() {
+        return name;
+    }
+    public Long getRoomNumber() {
+        return roomNumber;
+    }
+    public String getDescription() {
         return description;
     }
-
-    public Object getBuildingID() {
+    public Long getBuildingID() {
         return buildingID;
     }
-
-    public Object getFloorID() {
+    public Long getFloorID() {
         return floorID;
     }
-
-    public Object getLayerID() {
+    public Long getLayerID() {
         return layerID;
     }
-
-    public Object getRelativeX() {
+    public Double getRelativeX() {
         return relative_x;
     }
-
-    public Object getRelativeY() {
+    public Double getRelativeY() {
         return relative_y;
     }
-    public Object getRoom() {
-        return roomNumber;
+    public JLabel getParent() {
+        return parent;
     }
 }

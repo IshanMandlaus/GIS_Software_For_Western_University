@@ -66,7 +66,7 @@ public class GUI extends JFrame{
     public GUI(String title) throws HeadlessException, IOException, ParseException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
-        builtinPOIs = new Layer("builtIn", 0,map);
+        builtinPOIs = new Layer("builtIn", 0,1, 1, map);
         currUser = new User("paul", "password");
         currMap = "Maps/MC-BF/MC-BF-1.png";
 
@@ -84,6 +84,40 @@ public class GUI extends JFrame{
         map = new JLabel();
         map.setBounds(0, 0, 1920, 1080);
         mapContainer.add(map, 0);
+        //////////////////////////////FREE YE///////////////////////////////////////////////////////////////////////////
+        int offset = 11111-11111+11111-11111+11111-11111+11111-11111+11111-11111+11111-11110;///////////////////////////
+        //////////////////////////////INITIALIZE 3 BUILDING OBJECTS/////////////////////////////////////////////////////
+        Building middlesex = new Building("Middlesex College", 5, 1, map);
+        Building westminsterHall = new Building("Westminster Hall", 4, 2, map);
+        Building afar = new Building("Avian Research", 2, 3, map);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////NOW WHEN WE WANT TO ADD A NEW POI, WE CAN DO SO BY CALLING THE FOLLOWING METHOD////
+
+        if (middlesex.getFloor(1-offset) == (null)) {
+            System.out.println("Floor 1 is null"); //shouldn't print
+        }
+        if (middlesex.getFloor(1).getLayer(2-offset) == (null)) {
+            System.out.println("Floor 1 MX layer 2 is null"); //shouldn't print
+        }
+        //else print out the layer object attributes
+
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getLayerID()); //should print 2
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getFloorID()); //should print 1
+        if (middlesex.getFloor(1).getLayer(2-offset).getPOI("A") == (null)) {
+            System.out.println("POI A @ Floor 1 MX layer 2 :: is null"); //shouldnt print
+        }
+        //System.out.println(middlesex.getFloor(1).getLayer(2));
+
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A")); //shouldnt print null
+        //for testing, print out all the POI attributes
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuiltin()); //should print true
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getName()); //should print A
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getRoomNumber()); //should print 333
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getDescription());
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getLayerID()); //should print 2
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getFloorID()); //should print 1
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuildingID()); //should print 1
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         this.setContentPane(mainPanel);
@@ -169,7 +203,6 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (poiCreateMode) {
                     super.mouseClicked(e);
-                    //POI(int builtin, String name, int rmNum, String description, int buildingID, int floorID, int layerID, double relative_x, double relative_y, JLabel parent)
                     new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,1,3,3, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
                     // Clear text fields in the creation menu after the POI is created
                     poiRoomNumber.setText("");

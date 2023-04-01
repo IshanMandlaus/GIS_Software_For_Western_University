@@ -20,13 +20,16 @@ public class Building {
         //loop through f and create a new floor for each
         for (int i = 0; i < numFloors; i++) {
             floors[i] = new Floor(new Layer[]{
-                    new Layer("Classrooms", 1,map),
-                    new Layer("Washrooms", 2,map),
-                    new Layer("Restaurants", 3,map),
-                    new Layer("Entries/Exit", 4,map),
-                    new Layer("Collaboration Rooms", 5,map),
-                    new Layer("User Created", 6,map)
-            },i);
+                    new Layer("Classrooms",id,i, 1,map),
+                    new Layer("Washrooms", id,i,2,map),
+                    new Layer("Restaurants", id,i,3,map),
+                    new Layer("Entries/Exit", id,i,4,map),
+                    new Layer("Collaboration Rooms", id,i,5,map),
+                    new Layer("User Created", id,i,6,map)
+            },i,id);
         }
+    }
+    public Floor getFloor(int floorNumber){
+        return this.floors[floorNumber];
     }
 }

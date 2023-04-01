@@ -1,5 +1,5 @@
 [
-  {"builtin": true, "name": "Andrew's Shitter", "room": 333, "description": "where Anderson makes poos", "building":  1, "floor":  1, "layer": 2, "x": 0.5, "y": 0.5},
-  {"builtin": true, "name": "The Bird Club", "room": 333, "description": "where Anderson makes poos", "building":  1, "floor":  3, "layer": 5, "x": 0.5, "y": 0.5},
-  {"builtin": true, "name": "Andrew's Shitter", "room": 333, "description": "where Anderson makes poos", "building":  1, "floor":  1, "layer": 2, "x": 0.5, "y": 0.5}
+  {"builtin": true, "name": "A", "roomNumber": 333, "description": "poo station", "buildingID":  1, "floorID":  1, "layerID": 2, "relative_x": 0.5, "relative_y": 0.5},
+  {"builtin": true, "name": "The Bird Club", "roomNumber": 333, "description": "poo station", "buildingID":  2, "floorID":  3, "layerID": 5, "relative_x": 0.5, "relative_y": 0.5},
+  {"builtin": true, "name": "Patio", "roomNumber": 333, "description": "poo station", "buildingID":  3, "floorID":  1, "layerID": 2, "relative_x": 0.5, "relative_y": 0.5}
 ]
