@@ -1,0 +1,15 @@
+[{"floors":{
+  "floor1":{"image":"Maps/MC-BF/MC-BF-1.png"},
+  "floor2":{"image":"Maps/MC-BF/MC-BF-2.png"},
+  "floor3":{"image":"Maps/MC-BF/MC-BF-3.png"},
+  "floor4":{"image":"Maps/MC-BF/MC-BF-4.png"},
+  "floor5":{"image":"Maps/MC-BF/MC-BF-5.png"}},
+  "name":"MSC"},{"floors":{
+  "floor1":{"image":"Maps/AFAR-BF/AFAR-BF-1.png"},
+  "floor2":{"image":"Maps/AFAR-BF/AFAR-BF-2.png"}},
+  "name":"AFAR"},{"floors":{
+  "floor1":{"image":"Maps/WH-BF/WH-BF-1.png"},
+  "floor2":{"image":"Maps/WH-BF/WH-BF-2.png"},
+  "floor3":{"image":"Maps/WH-BF/WH-BF-3.png"},
+  "floor4":{"image":"Maps/WH-BF/WH-BF-4.png"}},
+  "name":"WH"}]

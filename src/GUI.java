@@ -62,6 +62,9 @@ public class GUI extends JFrame{
     private JComboBox layerCombobox;
     private JButton userHelpButton;
     private JLabel userLoginHelp;
+    private JButton downButton;
+    private JButton upButton;
+    private JLabel currFloorLabel;
     private JLabel poiCreationLocationPrompt;
     private final Layer builtinPOIs;
     private final User currUser;
@@ -71,7 +74,12 @@ public class GUI extends JFrame{
     private String currMap;
     private Building currBuilding;
     private Floor currFloor;
+    private int currFloorNum;
     private Building[] buildings = new Building[3];
+    private String[][] maps = {
+            {"Maps/MC-BF/MC-BF-1.png", "Maps/MC-BF/MC-BF-2.png", "Maps/MC-BF/MC-BF-3.png", "Maps/MC-BF/MC-BF-4.png", "Maps/MC-BF/MC-BF-5.png"},
+            {"Maps/WH-BF/WH-BF-1.png", "Maps/WH-BF/WH-BF-2.png", "Maps/WH-BF/WH-BF-3.png", "Maps/WH-BF/WH-BF-4.png"},
+            {"Maps/AFAR-BF/AFAR-BF-1.png", "Maps/AFAR-BF/AFAR-BF-2.png"}};
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
@@ -89,6 +97,13 @@ public class GUI extends JFrame{
         mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
         poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
         userLoginHelp.setIcon(resizedImageIcon("Icons/help.png", 40, 40));
+        upButton.setIcon(resizedImageIcon("Icons/up-arrow.png", 48,48));
+        downButton.setIcon(resizedImageIcon("Icons/down-arrow.png", 48, 48));
+
+        upButton.setFocusPainted(false);
+        upButton.setContentAreaFilled(false);
+        downButton.setFocusPainted(false);
+        downButton.setContentAreaFilled(false);
 
         mapContainer.setLayout(null);
         mapContainer.setBounds(0, 0, mapScrollPane.getWidth(), mapScrollPane.getHeight());
@@ -129,8 +144,10 @@ public class GUI extends JFrame{
         buildings[1] = westminsterHall;
         buildings[2] = afar;
         currBuilding = middlesex;
-        currFloor = middlesex.getFloor(1);
-        setBuilding(middlesex);
+        currFloorNum = 1;
+        currFloorLabel.setText("Floor: " + currFloorNum);
+        currFloor = middlesex.getFloor(currFloorNum);
+        setBuilding(middlesex, currFloorNum);
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////NOW WHEN WE WANT TO ADD A NEW POI, WE CAN DO SO BY CALLING THE FOLLOWING METHOD////
@@ -142,23 +159,23 @@ public class GUI extends JFrame{
             System.out.println("Floor 1 MX layer 2 is null"); //shouldn't print
         }
         //else print out the layer object attributes
-
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getLayerID()); //should print 2
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getFloorID()); //should print 1
+//
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getLayerID()); //should print 2
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getFloorID()); //should print 1
         if (middlesex.getFloor(1).getLayer(2-offset).getPOI("A") == (null)) {
             System.out.println("POI A @ Floor 1 MX layer 2 :: is null"); //shouldnt print
         }
         //System.out.println(middlesex.getFloor(1).getLayer(2));
 
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A")); //shouldnt print null
-        //for testing, print out all the POI attributes
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuiltin()); //should print true
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getName()); //should print A
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getRoomNumber()); //should print 333
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getDescription());
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getLayerID()); //should print 2
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getFloorID()); //should print 1
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuildingID()); //should print 1
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A")); //shouldnt print null
+//        //for testing, print out all the POI attributes
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuiltin()); //should print true
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getName()); //should print A
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getRoomNumber()); //should print 333
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getDescription());
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getLayerID()); //should print 2
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getFloorID()); //should print 1
+//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuildingID()); //should print 1
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -211,7 +228,9 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/MC-BF/MC-BF-1.png";
-                setBuilding(middlesex);
+                setBuilding(middlesex, 1);
+                currFloorNum = 1;
+                currFloorLabel.setText("Floor: " + currFloorNum);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -220,7 +239,9 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/WH-BF/WH-BF-1.png";
-                setBuilding(westminsterHall);
+                setBuilding(westminsterHall, 1);
+                currFloorNum = 1;
+                currFloorLabel.setText("Floor: " + currFloorNum);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -229,7 +250,9 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
-                setBuilding(afar);
+                setBuilding(afar, 1);
+                currFloorNum = 1;
+                currFloorLabel.setText("Floor: " + currFloorNum);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -363,6 +386,66 @@ public class GUI extends JFrame{
                 JOptionPane.showMessageDialog(null, "How to use C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.: \nUse the maps bar on the left side to change buildings. Below that is the log out button, which takes the user back to the login screen. \nThe map in the center of the GUI can be scrolled through using the mouse and scroll bars. \nActive POIs are listed on the right side menu. The Create New POI button allows the user to create their own POI, provided they offer their own POI name, room number and description. The checkboxes underneath that button filter which categories of POIs are currently visible.");
             }
         });
+        upButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (currBuilding.getBuildingName().equals("Middlesex College")){
+                    if (currFloorNum < maps[0].length){
+                        currFloorNum++;
+                        setBuilding(middlesex, currFloorNum);
+                        currMap = maps[0][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Westminster Hall")) {
+                    if (currFloorNum < maps[1].length) {
+                        currFloorNum++;
+                        setBuilding(westminsterHall, currFloorNum);
+                        currMap = maps[1][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Avian Research")) {
+                    if (currFloorNum < maps[2].length) {
+                        currFloorNum++;
+                        setBuilding(afar, currFloorNum);
+                        currMap = maps[2][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                currFloorLabel.setText("Floor: " + currFloorNum);
+            }
+        });
+        downButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (currBuilding.getBuildingName().equals("Middlesex College")){
+                    if (currFloorNum > 1){
+                        currFloorNum--;
+                        setBuilding(middlesex, currFloorNum);
+                        currMap = maps[0][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Westminster Hall")) {
+                    if (currFloorNum > 1) {
+                        currFloorNum--;
+                        setBuilding(westminsterHall, currFloorNum);
+                        currMap = maps[1][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Avian Research")) {
+                    if (currFloorNum > 1) {
+                        currFloorNum--;
+                        setBuilding(afar, currFloorNum);
+                        currMap = maps[2][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                currFloorLabel.setText("Floor: " + currFloorNum);
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
@@ -382,9 +465,9 @@ public class GUI extends JFrame{
         return new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
-    private void setBuilding(Building building){
+    private void setBuilding(Building building, int floor){
         currBuilding=  building;
-        currFloor = building.getFloor(1); //may need to change to be dynamic
+        currFloor = building.getFloor(floor - 1); //may need to change to be dynamic
 
         for (Building b : buildings){
             for (Floor f : b.getFloors()){
