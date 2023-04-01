@@ -69,6 +69,9 @@ public class GUI extends JFrame{
     private static final String loginPanelCardName = "loginPanel";
     private static final String poiCreationCardName = "poiCreationPanel";
     private String currMap;
+    private Building currBuilding;
+    private Floor currFloor;
+    private Building[] buildings = new Building[3];
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
@@ -122,6 +125,13 @@ public class GUI extends JFrame{
         Building middlesex = new Building("Middlesex College", 5, 1, map);
         Building westminsterHall = new Building("Westminster Hall", 4, 2, map);
         Building afar = new Building("Avian Research", 2, 3, map);
+        buildings[0] = middlesex;
+        buildings[1] = westminsterHall;
+        buildings[2] = afar;
+        currBuilding = middlesex;
+        currFloor = middlesex.getFloor(1);
+        setBuilding(middlesex);
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////NOW WHEN WE WANT TO ADD A NEW POI, WE CAN DO SO BY CALLING THE FOLLOWING METHOD////
 
@@ -201,6 +211,7 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/MC-BF/MC-BF-1.png";
+                setBuilding(middlesex);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -209,6 +220,7 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/WH-BF/WH-BF-1.png";
+                setBuilding(westminsterHall);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -217,6 +229,7 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
+                setBuilding(afar);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -369,7 +382,20 @@ public class GUI extends JFrame{
         return new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
-    private boolean isValidCredentials(String username, char[] password){
-        return true;
+    private void setBuilding(Building building){
+        currBuilding=  building;
+        currFloor = building.getFloor(1); //may need to change to be dynamic
+
+        for (Building b : buildings){
+            for (Floor f : b.getFloors()){
+                for (Layer l : f.getLayers()){
+                    l.hideLayer();
+                }
+            }
+        }
+
+        for (Layer l : currFloor.getLayers()){
+            l.showLayer();
+        }
     }
 }

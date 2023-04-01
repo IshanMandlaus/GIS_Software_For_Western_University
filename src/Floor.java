@@ -15,4 +15,7 @@ public class Floor {
         return this.floorNumber;
     }
 
+    public Layer[] getLayers() {
+        return layers;
+    }
 }
