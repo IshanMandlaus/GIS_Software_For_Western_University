@@ -78,7 +78,7 @@ public class GUI extends JFrame{
 
         setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        userProfileImage.setIcon(resizedImageIcon("Icons/user.png", 100, 100));
+        userProfileImage.setIcon(resizedImageIcon("Icons/lw.png", 100, 100));
         middlesexThumbnail.setIcon(resizedImageIcon("Thumbnails/MC.jpg", 100, 100));
         westminsterhallThumbnail.setIcon(resizedImageIcon("Thumbnails/WH.jfif", 100, 100));
         afarThumbnail.setIcon(resizedImageIcon("Thumbnails/AFAR.jfif", 100, 100));

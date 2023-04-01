@@ -13,6 +13,7 @@
           <card name="loginPanel"/>
         </constraints>
         <properties>
+          <background color="-8372056"/>
           <enabled value="true"/>
           <font name="Comic Sans MS" size="16"/>
         </properties>
@@ -41,7 +42,8 @@
               </grid>
             </constraints>
             <properties>
-              <font name="Comic Sans MS" size="16"/>
+              <font name="Cooper Black" size="22"/>
+              <foreground color="-1"/>
               <text value="Username:"/>
             </properties>
           </component>
@@ -52,7 +54,8 @@
               </grid>
             </constraints>
             <properties>
-              <font name="Comic Sans MS" size="16"/>
+              <font name="Cooper Black" size="22"/>
+              <foreground color="-1"/>
               <text value="Password:"/>
             </properties>
           </component>
@@ -130,14 +133,18 @@
         <constraints>
           <card name="mapPanel"/>
         </constraints>
-        <properties/>
+        <properties>
+          <foreground color="-8372056"/>
+        </properties>
         <border type="none"/>
         <children>
           <scrollpane id="d79af" binding="mapScrollPane">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <foreground color="-8372056"/>
+            </properties>
             <border type="none"/>
             <children>
               <grid id="108ec" binding="mapContainer" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
