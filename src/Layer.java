@@ -12,14 +12,6 @@ import javax.swing.*;
 public class Layer {
     private final String name;
     private final ArrayList<POI> POIList;
-    private final int CLASSROOM = 1;
-    private final int WASHROOM = 2;
-    private final int RES = 3;
-    private final int RESTROOM = 4;
-    private final int STAIRS = 5;
-    private final int ELEVATOR = 6;
-    private final int EXIT = 7;
-    private final int OTHER = 8;
     private JLabel parent;
     long floorID, buildingID, layerID; // id = 0 is user created POIs
 
@@ -94,18 +86,6 @@ public class Layer {
             //if the POI has the same layer id as this layer AND the POI has the same name floor and building
             if (thisPOILayerID == layerID && ((long) poi.get("buildingID")) == bID && ((long) poi.get("floorID")) == fID) {
 
-/*                System.out.println("POI in this layer>>jsonPOI layerID = "+thisPOILayerID+" layer id: " + layerID);
-                //print all the POI info
-                System.out.println("Name: " + poi.get("name"));
-                System.out.println("Room: " + poi.get("roomNumber"));
-                System.out.println("Description: " + poi.get("description"));
-                System.out.println("Building: " + poi.get("buildingID"));
-                System.out.println("Floor: " + poi.get("floorID"));
-                System.out.println("Layer: " + poi.get("layerID"));
-                System.out.println("x: " + poi.get("relative_x"));
-                System.out.println("y: " + poi.get("relative_y"));
-                System.out.println("builtin: " + poi.get("builtin"));                   */
-
                 long buildingID = (long)  poi.get("buildingID");
                 String name = (String) poi.get("name");
                 long floorID = (long)  poi.get("floorID");
@@ -115,14 +95,17 @@ public class Layer {
                 String description = (String) poi.get("description");
                 boolean builtin = (Boolean) poi.get("builtin");
                 long rmNum = (long)  poi.get("roomNumber");
-                POI newPOI = new POI(builtin, name, rmNum, description, buildingID, floorID, layerID, relative_x, relative_y, parent);
+                String creatingUsr = (String) poi.get("creatingUsr");
+                ArrayList<String> favUsers = (ArrayList<String>) poi.get("favUsers");
+                POI newPOI = new POI(builtin, name, rmNum, description, buildingID, floorID, layerID, relative_x, relative_y, parent, creatingUsr, favUsers);
                 POIList.add(newPOI);
             }
         }
-/*        System.out.println("finished loop for this layer object");
-        System.out.println("POIList has following names: ");
-        for (POI p : POIList) System.out.println(p.getName());              */
 
+    }
+    //getter for entire POI list
+    public ArrayList<POI> getPOIList() {
+        return POIList;
     }
     public POI getPOI(String name){
         for (POI p : POIList){

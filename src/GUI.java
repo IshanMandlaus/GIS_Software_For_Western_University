@@ -4,12 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Objects;
 
-import java.io.File;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -64,7 +63,7 @@ public class GUI extends JFrame{
     private JLabel userLoginHelp;
     private JLabel poiCreationLocationPrompt;
     private final Layer builtinPOIs;
-    private final User currUser;
+    public static User currUser;
     private static final String mapPanelCardName = "mapPanel";
     private static final String loginPanelCardName = "loginPanel";
     private static final String poiCreationCardName = "poiCreationPanel";
@@ -77,7 +76,7 @@ public class GUI extends JFrame{
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
         builtinPOIs = new Layer("builtIn", 0,1, 1, map);
-        currUser = new User("paul", "password");
+        //currUser = new User("paul", "password");
         currMap = "Maps/MC-BF/MC-BF-1.png";
 
         setTitle(title);
@@ -115,7 +114,7 @@ public class GUI extends JFrame{
         //////////////MUTE////v//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////v/////v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////COMMENT THIS OUT TO SILENCE MUSIC////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        AudioInputStream audioStream = null; try {File file = new File("Icons/li.wav");audioStream = AudioSystem.getAudioInputStream(file);Clip clip = AudioSystem.getClip();clip.open(audioStream);clip.start();} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {System.err.println(ex);} finally {try {if (audioStream != null) {audioStream.close();}} catch (IOException ex) {System.err.println(ex);}}
+        //AudioInputStream audioStream = null; try {File file = new File("Icons/li.wav");audioStream = AudioSystem.getAudioInputStream(file);Clip clip = AudioSystem.getClip();clip.open(audioStream);clip.start();} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {System.err.println(ex);} finally {try {if (audioStream != null) {audioStream.close();}} catch (IOException ex) {System.err.println(ex);}}
         ///////////////////////^/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////^/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////^//////////////////////////////////////////////////////////RIGHT HERE///////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,12 +129,13 @@ public class GUI extends JFrame{
         buildings[2] = afar;
         currBuilding = middlesex;
         currFloor = middlesex.getFloor(1);
-        setBuilding(middlesex);
-
+        //System.out.println("Current user is " + currUser.getUsername());
+        setBuilding(middlesex, currUser);
+        //initUsrSettings(thisUser, middlesex);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////NOW WHEN WE WANT TO ADD A NEW POI, WE CAN DO SO BY CALLING THE FOLLOWING METHOD////
 
-        if (middlesex.getFloor(1-offset) == (null)) {
+     /*   if (middlesex.getFloor(1-offset) == (null)) {
             System.out.println("Floor 1 is null"); //shouldn't print
         }
         if (middlesex.getFloor(1).getLayer(2-offset) == (null)) {
@@ -158,7 +158,7 @@ public class GUI extends JFrame{
         System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getDescription());
         System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getLayerID()); //should print 2
         System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getFloorID()); //should print 1
-        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuildingID()); //should print 1
+        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A").getBuildingID()); //should print 1*/
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -179,10 +179,18 @@ public class GUI extends JFrame{
                     throw new RuntimeException(ex);
                 }
 
-                if (check) {
+                if (check) {//Login successful
                     usernameField.setText("");
                     passwordField.setText("");
-                    cardLayout.show(mainPanel, mapPanelCardName);
+                    cardLayout.show(mainPanel, mapPanelCardName); //show map panel
+                    //create new user object
+                    currUser = new User(username, password); //create new user object matching the username and password
+                    //terminal prompt for testing
+                    System.out.println("WELCOME TO CUAMPES-ACGISANT, " + currUser.getUsername().toUpperCase() + "!");
+                    //print current time in all caps
+                    System.out.println("CURRENT TIME IS: " + new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()).toUpperCase());
+                    System.out.println("Could I get you anything? Coffee or tea perhaps?");
+
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Invalid username or password");
@@ -211,7 +219,8 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/MC-BF/MC-BF-1.png";
-                setBuilding(middlesex);
+                setBuilding(middlesex, currUser);
+                //initUsrSettings(currUser,middlesex);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -220,7 +229,8 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/WH-BF/WH-BF-1.png";
-                setBuilding(westminsterHall);
+                setBuilding(westminsterHall, currUser);
+                //initUsrSettings(thisUser,westminsterHall);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -228,8 +238,9 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
-                setBuilding(afar);
+                currMap = "Maps/AFAR-BF/xAFAR-BF-1.png";
+                setBuilding(afar, currUser);
+                //initUsrSettings(thisUser,afar);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -269,7 +280,8 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 if (poiCreateMode) {
                     super.mouseClicked(e);
-                    new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,1,3,3, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map);
+                    ArrayList<String> empty = new ArrayList<String>(); //empty array list of strings for favorites list
+                    new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,1,3,3, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map, currUser.getUsername(), empty);
                     // Clear text fields in the creation menu after the POI is created
                     poiRoomNumber.setText("");
                     poiDescription.setText("");
@@ -366,6 +378,7 @@ public class GUI extends JFrame{
     }
 
     public static void main(String[] args) throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
+        currUser = new User("YEEZY", "YEEZY");
         GUI frame = new GUI("C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.");
 
         GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -382,10 +395,12 @@ public class GUI extends JFrame{
         return new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
-    private void setBuilding(Building building){
-        currBuilding=  building;
+    private void setBuilding(Building building, User currUser){
+        //print current user
+        //TESTING -- System.out.println("SETBUILDING()))))current user is: " + currUser.getUsername());
+        currBuilding =  building;
         currFloor = building.getFloor(1); //may need to change to be dynamic
-
+        String currUsername = currUser.getUsername();
         for (Building b : buildings){
             for (Floor f : b.getFloors()){
                 for (Layer l : f.getLayers()){
@@ -396,6 +411,32 @@ public class GUI extends JFrame{
 
         for (Layer l : currFloor.getLayers()){
             l.showLayer();
+
+            for (POI p : l.getPOIList()){
+                //System.out.println("looking at POI made by: " + p.getCreatingUsr());
+                if (p.getCreatingUsr() == null){
+                    //null creating user. if its not builtin, hide it
+                    if (p.getBuiltin() == false) {
+                        p.setVisible(false);
+                    }
+                    if (p.getBuiltin() == true) { //built-in POIs don't need a user association
+                        //System.out.println("builtin POI found");
+                        p.setVisible(true);
+                    }
+                }
+                else{ //not null creating user
+                    if(currUsername.equals(p.getCreatingUsr())){
+                        p.setVisible(true);
+                    }
+                    else{
+                        p.setVisible(false);
+                        if (p.getBuiltin() == true) { //built-in POIs don't need a user association
+                            //System.out.println("builtin POI found");
+                            p.setVisible(true);
+                        }
+                    }
+                }
+            }
         }
     }
 }

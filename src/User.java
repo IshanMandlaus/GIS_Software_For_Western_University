@@ -100,5 +100,9 @@ public class User {
         }
         return validUser;
     }
+    //getters
+    public String getUsername() {
+        return username;
+    }
 }
 

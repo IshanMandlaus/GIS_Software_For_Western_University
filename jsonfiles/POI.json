@@ -1,5 +1,247 @@
 [
-  {"builtin": true, "name": "A", "roomNumber": 333, "description": "poo station", "buildingID":  1, "floorID":  1, "layerID": 2, "relative_x": 0.5, "relative_y": 0.5},
-  {"builtin": true, "name": "The Bird Club", "roomNumber": 333, "description": "poo station", "buildingID":  2, "floorID":  3, "layerID": 5, "relative_x": 0.5, "relative_y": 0.5},
-  {"builtin": true, "name": "Patio", "roomNumber": 333, "description": "poo station", "buildingID":  3, "floorID":  1, "layerID": 2, "relative_x": 0.5, "relative_y": 0.5}
+  {
+    "builtin": false,
+    "name": "A",
+    "roomNumber": 333,
+    "description": "poo station",
+    "buildingID":  1,
+    "floorID":  1,
+    "layerID": 1,
+    "relative_x": 0.5, "relative_y": 0.5,
+    "creatingUsr": "saad", "favUsers":  ["abao5","saad"]
+  },
+  {
+    "builtin": true,
+    "name": "The Bird Club",
+    "roomNumber": 303,
+    "description": "p station",
+    "buildingID":  2,
+    "floorID":  1,
+    "layerID": 5,
+    "relative_x": 0.35, "relative_y": 0.25,
+    "creatingUsr": "", "favUsers":  ["imandlau","saad"]
+  },
+  {
+    "builtin": false,
+    "name": "Patio",
+    "roomNumber": 111,
+    "description": "panda station",
+    "buildingID":  3,
+    "floorID":  1,
+    "layerID": 2,
+    "relative_x": 0.2, "relative_y": 0.3,
+    "creatingUsr": "imandlau", "favUsers":  ["pmoore44"]
+  },
+  {
+    "builtin": false,
+    "name": "Poo-tio",
+    "roomNumber": 999,
+    "description": "9stationz",
+    "buildingID":  2,
+    "floorID":  1,
+    "layerID": 6,
+    "relative_x": 0.45, "relative_y": 0.5,
+    "creatingUsr": "saad", "favUsers":  [""]
+  },
+  {
+    "builtin": true,
+    "name": "The Fun House",
+    "roomNumber": 101,
+    "description": "crazy station",
+    "buildingID": 1,
+    "floorID": 1,
+    "layerID": 3,
+    "relative_x": 0.5,
+    "relative_y": 0.5,
+    "creatingUsr": "duckmanservos",
+    "favUsers": [
+      "mansar33",
+      "abao5"
+    ]
+  },
+  {
+    "builtin": true,
+    "name": "The Ultimate Hangout",
+    "roomNumber": 777,
+    "description": "chill zone",
+    "buildingID": 3,
+    "floorID": 1,
+    "layerID": 4,
+    "relative_x": 0.6,
+    "relative_y": 0.9,
+    "creatingUsr": "mansar33",
+    "favUsers": [
+      "duckmanservos",
+      "imandlau"
+    ]
+  },
+  {
+    "builtin": true,
+    "name": "The Secret Hideaway",
+    "roomNumber": 666,
+    "description": "mysterious station",
+    "buildingID": 1,
+    "floorID": 1,
+    "layerID": 6,
+    "relative_x": 0.8,
+    "relative_y": 0.1,
+    "creatingUsr": "abao5",
+    "favUsers": [
+      "saad",
+      "imandlau"
+    ]
+  },
+  {
+    "builtin": false,
+    "name": "Bunny Hutch",
+    "roomNumber": 202,
+    "description": "cute station",
+    "buildingID": 2,
+    "floorID": 1,
+    "layerID": 4,
+    "relative_x": 0.4,
+    "relative_y": 0.7,
+    "creatingUsr": "imandlau",
+    "favUsers": [
+      "saad",
+      "pmoore44"
+    ]
+  },
+  {
+    "builtin": false,
+    "name": "The Time Warp",
+    "roomNumber": 808,
+    "description": "retro station",
+    "buildingID": 3,
+    "floorID": 1,
+    "layerID": 2,
+    "relative_x": 0.2,
+    "relative_y": 0.3,
+    "creatingUsr": "imandlau",
+    "favUsers": [
+      "abao5",
+      "imandlau"
+    ]
+  },
+  {
+    "builtin": false,
+    "name": "The Library",
+    "roomNumber": 202,
+    "description": "Quiet Study",
+    "buildingID":  1,
+    "floorID":  1,
+    "layerID": 4,
+    "relative_x": 0.9, "relative_y": 0.3,
+    "creatingUsr": "imandlau", "favUsers":  ["duckmanservos","mansar33","abao5"]
+  },
+  {
+    "builtin": true,
+    "name": "The Cuddle Zone",
+    "roomNumber": 102,
+    "description": "Cuddle with your pets",
+    "buildingID":  1,
+    "floorID":  1,
+    "layerID": 5,
+    "relative_x": 0.5, "relative_y": 0.8,
+    "creatingUsr": "", "favUsers":  ["abao5","imandlau"]
+  },
+  {
+    "builtin": false,
+    "name": "The Bean Bag Room",
+    "roomNumber": 444,
+    "description": "Relaxing Room",
+    "buildingID":  2,
+    "floorID":  1,
+    "layerID": 2,
+    "relative_x": 0.8, "relative_y": 0.1,
+    "creatingUsr": "imandlau", "favUsers":  ["saad","imandlau"]
+  },
+  {
+    "builtin": true,
+    "name": "The Fish Tank",
+    "roomNumber": 505,
+    "description": "Aquarium",
+    "buildingID":  1,
+    "floorID":  1,
+    "layerID": 6,
+    "relative_x": 0.4, "relative_y": 0.2,
+    "creatingUsr": "", "favUsers":  ["mansar33","duckmanservos"]
+  },
+  {
+    "builtin": false,
+    "name": "The Zen Garden",
+    "roomNumber": 303,
+    "description": "Peaceful Space",
+    "buildingID":  3,
+    "floorID":  1,
+    "layerID": 3,
+    "relative_x": 0.3, "relative_y": 0.9,
+    "creatingUsr": "imandlau", "favUsers":  ["pmoore44"]
+  },
+  {
+    "builtin": false,
+    "name": "The Gaming Room",
+    "roomNumber": 777,
+    "description": "Gaming Paradise",
+    "buildingID":  2,
+    "floorID":  1,
+    "layerID": 4,
+    "relative_x": 0.6, "relative_y": 0.5,
+    "creatingUsr": "saad", "favUsers":  ["duckmanservos","mansar33"]
+  },
+  {
+    "builtin": false,
+    "name": "The Art Studio",
+    "roomNumber": 909,
+    "description": "Creative Space",
+    "buildingID":  3,
+    "floorID":  1,
+    "layerID": 1,
+    "relative_x": 0.1, "relative_y": 0.7,
+    "creatingUsr": "saad", "favUsers":  ["saad","duckmanservos"]
+  },
+  {
+    "builtin": false,
+    "name": "The Music Room",
+    "roomNumber": 606,
+    "description": "Music Paradise",
+    "buildingID":  1,
+    "floorID":  1,
+    "layerID": 2,
+    "relative_x": 0.2, "relative_y": 0.5,
+    "creatingUsr": "saad", "favUsers":  ["mansar33","duckmanservos"]
+  },
+  {
+    "builtin": false,
+    "name": "The Movie Room",
+    "roomNumber": 404,
+    "description": "Movie Paradise",
+    "buildingID":  2,
+    "floorID":  1,
+    "layerID": 5,
+    "relative_x": 0.7, "relative_y": 0.8,
+    "creatingUsr": "saad", "favUsers":  ["mansar33","duckmanservos"]
+  },
+  {
+    "builtin": true,
+    "name": "The Reading Room",
+    "roomNumber": 303,
+    "description": "Reading Paradise",
+    "buildingID":  3,
+    "floorID":  1,
+    "layerID": 6,
+    "relative_x": 0.8, "relative_y": 0.2,
+    "creatingUsr": "imandlau", "favUsers":  ["mansar33","duckmanservos"]
+  },
+  {
+    "builtin": true,
+    "name": "The Meditation Room",
+    "roomNumber": 202,
+    "description": "Meditation Paradise",
+    "buildingID":  1,
+    "floorID":  1,
+    "layerID": 3,
+    "relative_x": 0.3, "relative_y": 0.1,
+    "creatingUsr": "abao5", "favUsers":  ["mansar33","duckmanservos"]
+  }
 ]

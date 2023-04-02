@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class POI extends JButton {
     private boolean builtin;
@@ -12,10 +13,15 @@ public class POI extends JButton {
     private double relative_y;
     private JLabel parent;
     private ImageIcon icon;
+    private String creatingUsr;
+    //private string array of users
+    private ArrayList<String> favUsers = new ArrayList<String>();
+
 
     long floorID, buildingID, layerID;
 
-    public POI(boolean builtin, String name, long roomNumber, String description, long buildingID, long floorID, long layerID, double relative_x, double relative_y, JLabel parent) {
+    public POI(boolean builtin, String name, long roomNumber, String description, long buildingID, long floorID,
+               long layerID, double relative_x, double relative_y, JLabel parent, String creatingUsr, ArrayList<String> favUsers) {
         super("");
         this.builtin = builtin;
         this.name = name;
@@ -27,6 +33,9 @@ public class POI extends JButton {
         this.relative_x = relative_x;
         this.relative_y = relative_y;
         this.parent = parent;
+        this.creatingUsr = creatingUsr;
+        this.favUsers= favUsers;
+
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
         parent.add(this);
         icon = new ImageIcon(new ImageIcon("Icons/user.png").getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
@@ -84,5 +93,11 @@ public class POI extends JButton {
     }
     public JLabel getParent() {
         return parent;
+    }
+    public String getCreatingUsr() {
+        return creatingUsr;
+    }
+    public ArrayList<String> getFavUsers() {
+        return favUsers;
     }
 }
