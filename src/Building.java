@@ -34,4 +34,8 @@ public class Building {
     public Floor[] getFloors() {
         return floors;
     }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
 }

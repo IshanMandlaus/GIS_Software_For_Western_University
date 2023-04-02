@@ -47,8 +47,13 @@ public class Layer {
         newPOI.put("x", poi.getRelativeX());
         newPOI.put("y", poi.getRelativeY());
         FileWriter file = new FileWriter("jsonfiles/POI.json");
-        file.write(newPOI.toJSONString());
-        file.flush();
+        try {
+            file.write(newPOI.toJSONString());
+            file.flush();
+        }
+        catch (Exception e) {
+            ;
+        }
     }
 
     public void removePOI(POI poi) throws IOException, ParseException, IOException {
