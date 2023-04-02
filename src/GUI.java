@@ -61,6 +61,9 @@ public class GUI extends JFrame{
     private JComboBox layerCombobox;
     private JButton userHelpButton;
     private JLabel userLoginHelp;
+    private JButton upButton;
+    private JButton downButton;
+    private JLabel currFloorLabel;
     private JLabel poiCreationLocationPrompt;
     private final Layer builtinPOIs;
     public static User currUser;
@@ -71,6 +74,11 @@ public class GUI extends JFrame{
     private Building currBuilding;
     private Floor currFloor;
     private Building[] buildings = new Building[3];
+    private String[][] maps = {
+            {"Maps/MC-BF/MC-BF-1.png", "Maps/MC-BF/MC-BF-2.png", "Maps/MC-BF/MC-BF-3.png", "Maps/MC-BF/MC-BF-4.png", "Maps/MC-BF/MC-BF-5.png"},
+            {"Maps/WH-BF/WH-BF-1.png", "Maps/WH-BF/WH-BF-2.png", "Maps/WH-BF/WH-BF-3.png", "Maps/WH-BF/WH-BF-4.png"},
+            {"Maps/AFAR-BF/AFAR-BF-1.png", "Maps/AFAR-BF/AFAR-BF-2.png"}};
+    private int currFloorNum;
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
@@ -88,6 +96,14 @@ public class GUI extends JFrame{
         mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
         poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
         userLoginHelp.setIcon(resizedImageIcon("Icons/help.png", 40, 40));
+
+        upButton.setIcon(resizedImageIcon("Icons/up-arrow.png", 48,48));
+        downButton.setIcon(resizedImageIcon("Icons/down-arrow.png", 48, 48));
+
+        upButton.setFocusPainted(false);
+        upButton.setContentAreaFilled(false);
+        downButton.setFocusPainted(false);
+        downButton.setContentAreaFilled(false);
 
         mapContainer.setLayout(null);
         mapContainer.setBounds(0, 0, mapScrollPane.getWidth(), mapScrollPane.getHeight());
@@ -128,9 +144,11 @@ public class GUI extends JFrame{
         buildings[1] = westminsterHall;
         buildings[2] = afar;
         currBuilding = middlesex;
-        currFloor = middlesex.getFloor(1);
+        currFloorNum = 1;
+        currFloor = middlesex.getFloor(currFloorNum);
         //System.out.println("Current user is " + currUser.getUsername());
-        setBuilding(middlesex, currUser);
+        setBuilding(middlesex, currUser, currFloorNum);
+        currFloorLabel.setText("Floor: " + currFloorNum);
         //initUsrSettings(thisUser, middlesex);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////NOW WHEN WE WANT TO ADD A NEW POI, WE CAN DO SO BY CALLING THE FOLLOWING METHOD////
@@ -219,7 +237,9 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/MC-BF/MC-BF-1.png";
-                setBuilding(middlesex, currUser);
+                currFloorNum = 1;
+                currFloorLabel.setText("Floor: " + currFloorNum);
+                setBuilding(middlesex, currUser, 1);
                 //initUsrSettings(currUser,middlesex);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
@@ -229,7 +249,9 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/WH-BF/WH-BF-1.png";
-                setBuilding(westminsterHall, currUser);
+                currFloorNum = 1;
+                currFloorLabel.setText("Floor: " + currFloorNum);
+                setBuilding(westminsterHall, currUser, 1);
                 //initUsrSettings(thisUser,westminsterHall);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
@@ -238,8 +260,10 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                currMap = "Maps/AFAR-BF/xAFAR-BF-1.png";
-                setBuilding(afar, currUser);
+                currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
+                currFloorNum = 1;
+                currFloorLabel.setText("Floor: " + currFloorNum);
+                setBuilding(afar, currUser, 1);
                 //initUsrSettings(thisUser,afar);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
@@ -375,6 +399,66 @@ public class GUI extends JFrame{
                 JOptionPane.showMessageDialog(null, "How to use C.U.A.M.P.E.S - A.C.G.I.S.A.N.T.: \nUse the maps bar on the left side to change buildings. Below that is the log out button, which takes the user back to the login screen. \nThe map in the center of the GUI can be scrolled through using the mouse and scroll bars. \nActive POIs are listed on the right side menu. The Create New POI button allows the user to create their own POI, provided they offer their own POI name, room number and description. The checkboxes underneath that button filter which categories of POIs are currently visible.");
             }
         });
+        upButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (currBuilding.getBuildingName().equals("Middlesex College")){
+                    if (currFloorNum < maps[0].length){
+                        currFloorNum++;
+                        setBuilding(middlesex, currUser, currFloorNum);
+                        currMap = maps[0][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Westminster Hall")) {
+                    if (currFloorNum < maps[1].length) {
+                        currFloorNum++;
+                        setBuilding(westminsterHall, currUser, currFloorNum);
+                        currMap = maps[1][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Avian Research")) {
+                    if (currFloorNum < maps[2].length) {
+                        currFloorNum++;
+                        setBuilding(afar, currUser, currFloorNum);
+                        currMap = maps[2][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                currFloorLabel.setText("Floor: " + currFloorNum);
+            }
+        });
+        downButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (currBuilding.getBuildingName().equals("Middlesex College")){
+                    if (currFloorNum > 1){
+                        currFloorNum--;
+                        setBuilding(middlesex, currUser, currFloorNum);
+                        currMap = maps[0][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Westminster Hall")) {
+                    if (currFloorNum > 1) {
+                        currFloorNum--;
+                        setBuilding(westminsterHall, currUser, currFloorNum);
+                        currMap = maps[1][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                else if (currBuilding.getBuildingName().equals("Avian Research")) {
+                    if (currFloorNum > 1) {
+                        currFloorNum--;
+                        setBuilding(afar, currUser, currFloorNum);
+                        currMap = maps[2][currFloorNum - 1];
+                        map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
+                    }
+                }
+                currFloorLabel.setText("Floor: " + currFloorNum);
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
@@ -395,11 +479,11 @@ public class GUI extends JFrame{
         return new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
-    private void setBuilding(Building building, User currUser){
+    private void setBuilding(Building building, User currUser, int floorNum){
         //print current user
         //TESTING -- System.out.println("SETBUILDING()))))current user is: " + currUser.getUsername());
         currBuilding =  building;
-        currFloor = building.getFloor(1); //may need to change to be dynamic
+        currFloor = building.getFloor(floorNum - 1); //may need to change to be dynamic
         String currUsername = currUser.getUsername();
         for (Building b : buildings){
             for (Floor f : b.getFloors()){

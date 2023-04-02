@@ -5,7 +5,7 @@
     "roomNumber": 333,
     "description": "poo station",
     "buildingID":  1,
-    "floorID":  1,
+    "floorID":  0,
     "layerID": 1,
     "relative_x": 0.5, "relative_y": 0.5,
     "creatingUsr": "saad", "favUsers":  ["abao5","saad"]
@@ -16,7 +16,7 @@
     "roomNumber": 303,
     "description": "p station",
     "buildingID":  2,
-    "floorID":  1,
+    "floorID":  0,
     "layerID": 5,
     "relative_x": 0.35, "relative_y": 0.25,
     "creatingUsr": "", "favUsers":  ["imandlau","saad"]
@@ -27,7 +27,7 @@
     "roomNumber": 111,
     "description": "panda station",
     "buildingID":  3,
-    "floorID":  1,
+    "floorID":  0,
     "layerID": 2,
     "relative_x": 0.2, "relative_y": 0.3,
     "creatingUsr": "imandlau", "favUsers":  ["pmoore44"]
@@ -38,7 +38,7 @@
     "roomNumber": 999,
     "description": "9stationz",
     "buildingID":  2,
-    "floorID":  1,
+    "floorID":  0,
     "layerID": 6,
     "relative_x": 0.45, "relative_y": 0.5,
     "creatingUsr": "saad", "favUsers":  [""]
@@ -49,7 +49,7 @@
     "roomNumber": 101,
     "description": "crazy station",
     "buildingID": 1,
-    "floorID": 1,
+    "floorID": 0,
     "layerID": 3,
     "relative_x": 0.5,
     "relative_y": 0.5,
@@ -65,7 +65,7 @@
     "roomNumber": 777,
     "description": "chill zone",
     "buildingID": 3,
-    "floorID": 1,
+    "floorID": 0,
     "layerID": 4,
     "relative_x": 0.6,
     "relative_y": 0.9,
