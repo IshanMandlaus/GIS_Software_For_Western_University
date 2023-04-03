@@ -10,7 +10,7 @@ public class Building {
     private final int id;
     private JLabel map;
 
-    public Building(String buildingName, int numFloors, int id, JLabel map) throws IOException, ParseException {
+    public Building(String buildingName, int numFloors, int id, JLabel map, User currUser) throws IOException, ParseException {
         this.buildingName = buildingName;
         this.id = id;
         this.floors = new Floor[numFloors];
@@ -18,12 +18,12 @@ public class Building {
         //loop through f and create a new floor for each
         for (int i = 0; i < numFloors; i++) {
             floors[i] = new Floor(new Layer[]{
-                    new Layer("Classrooms",id,i, 1,map),
-                    new Layer("Washrooms", id,i,2,map),
-                    new Layer("Restaurants", id,i,3,map),
-                    new Layer("Entries/Exit", id,i,4,map),
-                    new Layer("Collaboration Rooms", id,i,5,map),
-                    new Layer("User Created", id,i,6,map)
+                    new Layer("Classrooms",id,i, 1,map, currUser),
+                    new Layer("Washrooms", id,i,2,map, currUser),
+                    new Layer("Restaurants", id,i,3,map, currUser),
+                    new Layer("Entries/Exit", id,i,4,map, currUser),
+                    new Layer("Collaboration Rooms", id,i,5,map, currUser),
+                    new Layer("User Created", id,i,6,map, currUser)
             },i,id);
         }
     }

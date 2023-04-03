@@ -19,7 +19,7 @@
     "floorID":  0,
     "layerID": 5,
     "relative_x": 0.35, "relative_y": 0.25,
-    "creatingUsr": "", "favUsers":  ["imandlau","saad"]
+    "creatingUsr": "saad", "favUsers":  ["imandlau","saad"]
   },
   {
     "builtin": false,
@@ -143,7 +143,7 @@
     "floorID":  1,
     "layerID": 5,
     "relative_x": 0.5, "relative_y": 0.8,
-    "creatingUsr": "", "favUsers":  ["abao5","imandlau"]
+    "creatingUsr": "saad", "favUsers":  ["abao5","imandlau"]
   },
   {
     "builtin": false,
@@ -165,7 +165,7 @@
     "floorID":  1,
     "layerID": 6,
     "relative_x": 0.4, "relative_y": 0.2,
-    "creatingUsr": "", "favUsers":  ["mansar33","duckmanservos"]
+    "creatingUsr": "saad", "favUsers":  ["mansar33","duckmanservos"]
   },
   {
     "builtin": false,

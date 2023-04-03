@@ -16,6 +16,13 @@ public class POI extends JButton {
     private String creatingUsr;
     //private string array of users
     private ArrayList<String> favUsers = new ArrayList<String>();
+    private static final int USER_CREATED = 0;
+    private static final int CLASSROOM = 1;
+    private static final int WASHROOM = 2;
+    private static final int RESTAURANT = 3;
+    private static final int EXIT = 4;
+    private static final int COMPUTER_LAB = 5;
+    private static final int COLLAB = 6;
 
 
     long floorID, buildingID, layerID;
@@ -38,13 +45,40 @@ public class POI extends JButton {
 
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
         parent.add(this);
-        icon = new ImageIcon(new ImageIcon("Icons/user.png").getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
+        String imagePath;
+        switch ((int) layerID){
+            case 1:
+                imagePath = "Icons/classroom.png";
+                break;
+            case 2:
+                imagePath = "Icons/washroom.png";
+                break;
+            case 3:
+                imagePath = "Icons/restaurant.png";
+                break;
+            case 4:
+                imagePath = "Icons/exit.png";
+                break;
+            case 5:
+                imagePath = "Icons/computer-lab.png";
+                break;
+            case 6:
+                imagePath = "Icons/collab.png";
+                break;
+            default:
+                imagePath = "Icons/user.png";
+        }
+
+        icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
+        this.setIcon(icon);
 
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                
                 Object[] possibilities = {"Add To Favourites", "Delete"};
+
                 String s = (String)JOptionPane.showInputDialog(
                         parent,
                         "Room " + roomNumber + "\n" + description,

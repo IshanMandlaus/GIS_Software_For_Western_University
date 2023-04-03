@@ -14,14 +14,16 @@ public class Layer {
     private final ArrayList<POI> POIList;
     private JLabel parent;
     long floorID, buildingID, layerID; // id = 0 is user created POIs
+    private User currUser;
 
-    public Layer(String name, long buildingID, long floorID, long layerID, JLabel parent) throws IOException, ParseException {
+    public Layer(String name, long buildingID, long floorID, long layerID, JLabel parent, User currUser) throws IOException, ParseException {
         this.name = name;
         this.POIList = new ArrayList<POI>();
         this.parent = parent;
         this.layerID = layerID;
         this.floorID = floorID;
         this.buildingID = buildingID;
+        this.currUser = currUser;
         readJSON(buildingID,floorID); //now the layer has associated POIs
     }
 
@@ -89,8 +91,7 @@ public class Layer {
             JSONObject poi = (JSONObject) o;
             long thisPOILayerID = (long) poi.get("layerID");
             //if the POI has the same layer id as this layer AND the POI has the same name floor and building
-            if (thisPOILayerID == layerID && ((long) poi.get("buildingID")) == bID && ((long) poi.get("floorID")) == fID) {
-
+            if (thisPOILayerID == layerID && ((long) poi.get("buildingID")) == bID && ((long) poi.get("floorID")) == fID && ((boolean) poi.get("builtin") || currUser.getUsername().equals(poi.get("creatingUsr")))) {
                 long buildingID = (long)  poi.get("buildingID");
                 String name = (String) poi.get("name");
                 long floorID = (long)  poi.get("floorID");

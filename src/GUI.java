@@ -76,7 +76,6 @@ public class GUI extends JFrame{
     private JLabel conditionValue;
     private JLabel weatherIcon;
     private JLabel poiCreationLocationPrompt;
-    private final Layer builtinPOIs;
     public static User currUser;
     private static final String mapPanelCardName = "mapPanel";
     private static final String loginPanelCardName = "loginPanel";
@@ -90,12 +89,13 @@ public class GUI extends JFrame{
             {"Maps/WH-BF/WH-BF-1.png", "Maps/WH-BF/WH-BF-2.png", "Maps/WH-BF/WH-BF-3.png", "Maps/WH-BF/WH-BF-4.png"},
             {"Maps/AFAR-BF/AFAR-BF-1.png", "Maps/AFAR-BF/AFAR-BF-2.png"}};
     private int currFloorNum;
+    private Building middlesex;
+    private Building westminsterHall;
+    private Building afar;
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
-        builtinPOIs = new Layer("builtIn", 0,1, 1, map);
-        currUser = new User("paul", "password");
         currMap = "Maps/MC-BF/MC-BF-1.png";
 
         setTitle(title);
@@ -149,35 +149,25 @@ public class GUI extends JFrame{
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        Building middlesex = new Building("Middlesex College", 5, 1, map);
-        Building westminsterHall = new Building("Westminster Hall", 4, 2, map);
-        Building afar = new Building("Avian Research", 2, 3, map);
-        buildings[0] = middlesex;
-        buildings[1] = westminsterHall;
-        buildings[2] = afar;
-        currBuilding = middlesex;
-        currFloorNum = 1;
-        currFloor = middlesex.getFloor(currFloorNum);
-        //System.out.println("Current user is " + currUser.getUsername());
-        setBuilding(middlesex, currUser, currFloorNum);
-        currFloorLabel.setText("Floor: " + currFloorNum);
+
+
         //initUsrSettings(thisUser, middlesex);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////NOW WHEN WE WANT TO ADD A NEW POI, WE CAN DO SO BY CALLING THE FOLLOWING METHOD////
 
-        if (middlesex.getFloor(1-offset) == (null)) {
-            System.out.println("Floor 1 is null"); //shouldn't print
-        }
-        if (middlesex.getFloor(1).getLayer(2-offset) == (null)) {
-            System.out.println("Floor 1 MX layer 2 is null"); //shouldn't print
-        }
-        //else print out the layer object attributes
-//
-//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getLayerID()); //should print 2
-//        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getFloorID()); //should print 1
-        if (middlesex.getFloor(1).getLayer(2-offset).getPOI("A") == (null)) {
-            System.out.println("POI A @ Floor 1 MX layer 2 :: is null"); //shouldnt print
-        }
+//        if (middlesex.getFloor(1-offset) == (null)) {
+//            System.out.println("Floor 1 is null"); //shouldn't print
+//        }
+//        if (middlesex.getFloor(1).getLayer(2-offset) == (null)) {
+//            System.out.println("Floor 1 MX layer 2 is null"); //shouldn't print
+//        }
+//        //else print out the layer object attributes
+////
+////        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getLayerID()); //should print 2
+////        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getFloorID()); //should print 1
+//        if (middlesex.getFloor(1).getLayer(2-offset).getPOI("A") == (null)) {
+//            System.out.println("POI A @ Floor 1 MX layer 2 :: is null"); //shouldnt print
+//        }
         //System.out.println(middlesex.getFloor(1).getLayer(2));
 
 //        System.out.println(middlesex.getFloor(1).getLayer(2-offset).getPOI("A")); //shouldnt print null
@@ -213,6 +203,33 @@ public class GUI extends JFrame{
                     usernameField.setText("");
                     passwordField.setText("");
                     cardLayout.show(mainPanel, mapPanelCardName);
+
+                    // Create building objects with both built-in POIs and the ones created by the user logging in.
+                    currUser = new User(username, password);
+                    try {
+                        middlesex = new Building("Middlesex College", 5, 1, map, currUser);
+                    } catch (IOException | ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    try {
+                        westminsterHall = new Building("Westminster Hall", 4, 2, map, currUser);
+                    } catch (IOException | ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    try {
+                        afar = new Building("Avian Research", 2, 3, map, currUser);
+                    } catch (IOException | ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    buildings[0] = middlesex;
+                    buildings[1] = westminsterHall;
+                    buildings[2] = afar;
+                    currBuilding = middlesex;
+                    currFloorNum = 1;
+                    currFloor = middlesex.getFloor(currFloorNum);
+                    //System.out.println("Current user is " + currUser.getUsername());
+                    setBuilding(middlesex, currUser, currFloorNum);
+                    currFloorLabel.setText("Floor: " + currFloorNum);
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Invalid Username or Password");
