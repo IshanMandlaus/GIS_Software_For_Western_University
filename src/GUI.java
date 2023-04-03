@@ -68,8 +68,8 @@ public class GUI extends JFrame{
     private JComboBox layerCombobox;
     private JButton userHelpButton;
     private JLabel userLoginHelp;
-    private JButton downButton;
     private JButton upButton;
+    private JButton downButton;
     private JLabel currFloorLabel;
     private JLabel tempValue;
     private JLabel tempValue2;
@@ -77,19 +77,19 @@ public class GUI extends JFrame{
     private JLabel weatherIcon;
     private JLabel poiCreationLocationPrompt;
     private final Layer builtinPOIs;
-    private final User currUser;
+    public static User currUser;
     private static final String mapPanelCardName = "mapPanel";
     private static final String loginPanelCardName = "loginPanel";
     private static final String poiCreationCardName = "poiCreationPanel";
     private String currMap;
     private Building currBuilding;
     private Floor currFloor;
-    private int currFloorNum;
     private Building[] buildings = new Building[3];
     private String[][] maps = {
             {"Maps/MC-BF/MC-BF-1.png", "Maps/MC-BF/MC-BF-2.png", "Maps/MC-BF/MC-BF-3.png", "Maps/MC-BF/MC-BF-4.png", "Maps/MC-BF/MC-BF-5.png"},
             {"Maps/WH-BF/WH-BF-1.png", "Maps/WH-BF/WH-BF-2.png", "Maps/WH-BF/WH-BF-3.png", "Maps/WH-BF/WH-BF-4.png"},
             {"Maps/AFAR-BF/AFAR-BF-1.png", "Maps/AFAR-BF/AFAR-BF-2.png"}};
+    private int currFloorNum;
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
@@ -157,10 +157,11 @@ public class GUI extends JFrame{
         buildings[2] = afar;
         currBuilding = middlesex;
         currFloorNum = 1;
-        currFloorLabel.setText("Floor: " + currFloorNum);
         currFloor = middlesex.getFloor(currFloorNum);
-        setBuilding(middlesex, currFloorNum);
-
+        //System.out.println("Current user is " + currUser.getUsername());
+        setBuilding(middlesex, currUser, currFloorNum);
+        currFloorLabel.setText("Floor: " + currFloorNum);
+        //initUsrSettings(thisUser, middlesex);
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////NOW WHEN WE WANT TO ADD A NEW POI, WE CAN DO SO BY CALLING THE FOLLOWING METHOD////
 
@@ -229,9 +230,10 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/MC-BF/MC-BF-1.png";
-                setBuilding(middlesex, 1);
                 currFloorNum = 1;
                 currFloorLabel.setText("Floor: " + currFloorNum);
+                setBuilding(middlesex, currUser, 1);
+                //initUsrSettings(currUser,middlesex);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -240,9 +242,10 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/WH-BF/WH-BF-1.png";
-                setBuilding(westminsterHall, 1);
                 currFloorNum = 1;
                 currFloorLabel.setText("Floor: " + currFloorNum);
+                setBuilding(westminsterHall, currUser, 1);
+                //initUsrSettings(thisUser,westminsterHall);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -251,9 +254,10 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
-                setBuilding(afar, 1);
                 currFloorNum = 1;
                 currFloorLabel.setText("Floor: " + currFloorNum);
+                setBuilding(afar, currUser, 1);
+                //initUsrSettings(thisUser,afar);
                 map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
             }
         });
@@ -394,7 +398,7 @@ public class GUI extends JFrame{
                 if (currBuilding.getBuildingName().equals("Middlesex College")){
                     if (currFloorNum < maps[0].length){
                         currFloorNum++;
-                        setBuilding(middlesex, currFloorNum);
+                        setBuilding(middlesex, currUser, currFloorNum);
                         currMap = maps[0][currFloorNum - 1];
                         map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
                     }
@@ -402,7 +406,7 @@ public class GUI extends JFrame{
                 else if (currBuilding.getBuildingName().equals("Westminster Hall")) {
                     if (currFloorNum < maps[1].length) {
                         currFloorNum++;
-                        setBuilding(westminsterHall, currFloorNum);
+                        setBuilding(westminsterHall, currUser, currFloorNum);
                         currMap = maps[1][currFloorNum - 1];
                         map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
                     }
@@ -410,7 +414,7 @@ public class GUI extends JFrame{
                 else if (currBuilding.getBuildingName().equals("Avian Research")) {
                     if (currFloorNum < maps[2].length) {
                         currFloorNum++;
-                        setBuilding(afar, currFloorNum);
+                        setBuilding(afar, currUser, currFloorNum);
                         currMap = maps[2][currFloorNum - 1];
                         map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
                     }
@@ -424,7 +428,7 @@ public class GUI extends JFrame{
                 if (currBuilding.getBuildingName().equals("Middlesex College")){
                     if (currFloorNum > 1){
                         currFloorNum--;
-                        setBuilding(middlesex, currFloorNum);
+                        setBuilding(middlesex, currUser, currFloorNum);
                         currMap = maps[0][currFloorNum - 1];
                         map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
                     }
@@ -432,7 +436,7 @@ public class GUI extends JFrame{
                 else if (currBuilding.getBuildingName().equals("Westminster Hall")) {
                     if (currFloorNum > 1) {
                         currFloorNum--;
-                        setBuilding(westminsterHall, currFloorNum);
+                        setBuilding(westminsterHall, currUser, currFloorNum);
                         currMap = maps[1][currFloorNum - 1];
                         map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
                     }
@@ -440,7 +444,7 @@ public class GUI extends JFrame{
                 else if (currBuilding.getBuildingName().equals("Avian Research")) {
                     if (currFloorNum > 1) {
                         currFloorNum--;
-                        setBuilding(afar, currFloorNum);
+                        setBuilding(afar, currUser, currFloorNum);
                         currMap = maps[2][currFloorNum - 1];
                         map.setIcon(resizedImageIcon(currMap, mapContainer.getWidth(), mapContainer.getHeight()));
                     }
@@ -474,12 +478,21 @@ public class GUI extends JFrame{
             JSONObject condition = (JSONObject)current.get("condition");
             String conText = (String)condition.get("text");
             String conIcon = (String)condition.get("icon");
-            tempValue2.setText(temperature + "°C");  // Set temperature
-            conditionValue.setText(conText);  // Set condition
 
             URL url2 = new URL("http:" + conIcon);  // Get weather icon from API
             BufferedImage image = ImageIO.read(url2);  // Read response
-            weatherIcon.setIcon(new ImageIcon(image));  // Set weather icon
+            ImageIcon resizedConIcon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH));
+            weatherIcon.setIcon(resizedConIcon);  // Set weather icon
+            weatherIcon.setText(temperature + "°C");
+
+            // Create and place weather label on map
+            JLabel mapWeatherIcon = new JLabel(resizedConIcon);
+            mapWeatherIcon.setText(temperature + "°C");
+            mapWeatherIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
+            mapWeatherIcon.setHorizontalTextPosition(SwingConstants.CENTER);
+            mapWeatherIcon.setFont(weatherIcon.getFont());
+            map.add(mapWeatherIcon);
+            mapWeatherIcon.setBounds((map.getWidth() / 2) - 250, 0, 75, 100);
 
         } catch (IOException | ParseException e) {  // Catch errors
             e.printStackTrace();  // Print error
@@ -503,10 +516,12 @@ public class GUI extends JFrame{
         return new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
-    private void setBuilding(Building building, int floor){
-        currBuilding=  building;
-        currFloor = building.getFloor(floor - 1); //may need to change to be dynamic
-
+    private void setBuilding(Building building, User currUser, int floorNum){
+        //print current user
+        //TESTING -- System.out.println("SETBUILDING()))))current user is: " + currUser.getUsername());
+        currBuilding =  building;
+        currFloor = building.getFloor(floorNum - 1); //may need to change to be dynamic
+        String currUsername = currUser.getUsername();
         for (Building b : buildings){
             for (Floor f : b.getFloors()){
                 for (Layer l : f.getLayers()){
@@ -517,6 +532,32 @@ public class GUI extends JFrame{
 
         for (Layer l : currFloor.getLayers()){
             l.showLayer();
+
+            for (POI p : l.getPOIList()){
+                //System.out.println("looking at POI made by: " + p.getCreatingUsr());
+                if (p.getCreatingUsr() == null){
+                    //null creating user. if its not builtin, hide it
+                    if (p.getBuiltin() == false) {
+                        p.setVisible(false);
+                    }
+                    if (p.getBuiltin() == true) { //built-in POIs don't need a user association
+                        //System.out.println("builtin POI found");
+                        p.setVisible(true);
+                    }
+                }
+                else{ //not null creating user
+                    if(currUsername.equals(p.getCreatingUsr())){
+                        p.setVisible(true);
+                    }
+                    else{
+                        p.setVisible(false);
+                        if (p.getBuiltin() == true) { //built-in POIs don't need a user association
+                            //System.out.println("builtin POI found");
+                            p.setVisible(true);
+                        }
+                    }
+                }
+            }
         }
     }
 }
