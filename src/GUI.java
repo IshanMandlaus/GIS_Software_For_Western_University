@@ -125,6 +125,7 @@ public class GUI extends JFrame{
         map = new JLabel();
         map.setBounds(0, 0, 1920, 1080);
         mapContainer.add(map, 0);
+        initWeather();
         //////////////////////////////FREE YE//////////////////DONT DELETE THIS NECESSARY FOR THINGS TO WORK/////////////////////////////////////////////////////////
         int offset = 11111-11111+11111-11111+11111-11111+11111-11111+11111-11111+11111-11110;///////////////////////////
         //////////////////////////////INITIALIZE 3 BUILDING OBJECTS/////////////////////////////////////////////////////
@@ -237,7 +238,6 @@ public class GUI extends JFrame{
                     //System.out.println("Current user is " + currUser.getUsername());
                     setBuilding(middlesex, currUser, currFloorNum);
                     currFloorLabel.setText("Floor: " + currFloorNum);
-                    initWeather();
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Invalid Username or Password");
