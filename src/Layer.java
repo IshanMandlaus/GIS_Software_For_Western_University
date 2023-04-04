@@ -35,22 +35,27 @@ public class Layer {
         for (POI p : POIList) p.setVisible(true);
     }
 
-    public void addPOI(POI poi) throws IOException {
+    public void addPOI(POI poi) throws IOException, ParseException {
         POIList.add(poi);
-        poi.setLayerID(layerID);
         JSONObject newPOI = new JSONObject();
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader("jsonfiles/POI.json"));
+        JSONArray poiInJSON = (JSONArray) obj;
         newPOI.put("builtin", poi.getBuiltin());
         newPOI.put("name", poi.getName());
-        newPOI.put("room", poi.getRoomNumber());
+        newPOI.put("roomNumber", poi.getRoomNumber());
         newPOI.put("description", poi.getDescription());
-        newPOI.put("building", poi.getBuildingID());
-        newPOI.put("floor", poi.getFloorID());
-        newPOI.put("layer", poi.getLayerID());
-        newPOI.put("x", poi.getRelativeX());
-        newPOI.put("y", poi.getRelativeY());
+        newPOI.put("buildingID", poi.getBuildingID());
+        newPOI.put("floorID", poi.getFloorID());
+        newPOI.put("layerID", poi.getLayerID());
+        newPOI.put("relative_x", poi.getRelativeX());
+        newPOI.put("relative_y", poi.getRelativeY());
+        newPOI.put("creatingUsr", currUser.getUsername());
+        newPOI.put("favUsers", new ArrayList<String>());
         FileWriter file = new FileWriter("jsonfiles/POI.json");
         try {
-            file.write(newPOI.toJSONString());
+            poiInJSON.add(newPOI);
+            file.write(poiInJSON.toJSONString());
             file.flush();
         }
         catch (Exception e) {

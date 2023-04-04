@@ -47,22 +47,22 @@ public class POI extends JButton {
         parent.add(this);
         String imagePath;
         switch ((int) layerID){
-            case 1:
+            case CLASSROOM:
                 imagePath = "Icons/classroom.png";
                 break;
-            case 2:
+            case WASHROOM:
                 imagePath = "Icons/washroom.png";
                 break;
-            case 3:
+            case RESTAURANT:
                 imagePath = "Icons/restaurant.png";
                 break;
-            case 4:
+            case EXIT:
                 imagePath = "Icons/exit.png";
                 break;
-            case 5:
+            case COMPUTER_LAB:
                 imagePath = "Icons/computer-lab.png";
                 break;
-            case 6:
+            case COLLAB:
                 imagePath = "Icons/collab.png";
                 break;
             default:

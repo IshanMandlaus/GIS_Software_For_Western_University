@@ -613,7 +613,8 @@
             </constraints>
             <properties>
               <label value="Built-in"/>
-              <text value="Built-in"/>
+              <selected value="false"/>
+              <text value="Built-in" noi18n="true"/>
               <visible value="false"/>
             </properties>
           </component>
@@ -623,6 +624,7 @@
             </constraints>
             <properties>
               <model>
+                <item value="User-Created"/>
                 <item value="Classroom"/>
                 <item value="Washroom"/>
                 <item value="Restaurant"/>
