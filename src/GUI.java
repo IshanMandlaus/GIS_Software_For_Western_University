@@ -588,7 +588,6 @@ public class GUI extends JFrame{
         //TESTING -- System.out.println("SETBUILDING()))))current user is: " + currUser.getUsername());
         currBuilding =  building;
         currFloor = building.getFloor(floorNum - 1); //may need to change to be dynamic
-        layerPoiList = new JList(getPoisOnLayer());
         String currUsername = currUser.getUsername();
         for (Building b : buildings){
             for (Floor f : b.getFloors()){
