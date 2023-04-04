@@ -22,8 +22,9 @@ public class Building {
                     new Layer("Washrooms", id,i,2,map, currUser),
                     new Layer("Restaurants", id,i,3,map, currUser),
                     new Layer("Entries/Exit", id,i,4,map, currUser),
-                    new Layer("Collaboration Rooms", id,i,5,map, currUser),
-                    new Layer("User Created", id,i,6,map, currUser)
+                    new Layer("Computer Labs", id, i, 5, map, currUser),
+                    new Layer("Collaboration Rooms", id,i,6,map, currUser),
+                    new Layer("User Created", id,i,7,map, currUser)
             },i,id);
         }
     }
