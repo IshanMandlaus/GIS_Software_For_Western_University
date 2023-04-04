@@ -51,7 +51,7 @@ public class GUI extends JFrame{
     private JCheckBox complabLayerCheckbox;
     private JCheckBox collabLayerCheckbox;
     private JCheckBox usercreatedLayerCheckbox;
-    private JList layerPoiList = new JList(getPoisOnLayer());
+    private JList layerPoiList;
     private boolean poiCreateMode = false;
     private String thisPoiName;
     private int thisRmNum;
@@ -94,11 +94,14 @@ public class GUI extends JFrame{
     private Building middlesex;
     private Building westminsterHall;
     private Building afar;
+    private int currBuildingNum;
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
         currMap = "Maps/MC-BF/MC-BF-1.png";
+        currBuildingNum = 1;
+        currFloorNum = 1;
 
         setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -208,6 +211,8 @@ public class GUI extends JFrame{
 
                     // Create building objects with both built-in POIs and the ones created by the user logging in.
                     currUser = new User(username, password);
+                    if (username.equals("saad")) builtinCheckbox.setVisible(true);
+
                     try {
                         middlesex = new Building("Middlesex College", 5, 1, map, currUser);
                     } catch (IOException | ParseException ex) {
@@ -232,6 +237,7 @@ public class GUI extends JFrame{
                     //System.out.println("Current user is " + currUser.getUsername());
                     setBuilding(middlesex, currUser, currFloorNum);
                     currFloorLabel.setText("Floor: " + currFloorNum);
+                    initWeather();
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Invalid Username or Password");
@@ -250,6 +256,7 @@ public class GUI extends JFrame{
                 super.mouseClicked(e);
                 currMap = "Maps/MC-BF/MC-BF-1.png";
                 currFloorNum = 1;
+                currBuildingNum = 1;
                 currFloorLabel.setText("Floor: " + currFloorNum);
                 setBuilding(middlesex, currUser, 1);
                 //initUsrSettings(currUser,middlesex);
@@ -262,6 +269,7 @@ public class GUI extends JFrame{
                 super.mouseClicked(e);
                 currMap = "Maps/WH-BF/WH-BF-1.png";
                 currFloorNum = 1;
+                currBuildingNum = 2;
                 currFloorLabel.setText("Floor: " + currFloorNum);
                 setBuilding(westminsterHall, currUser, 1);
                 //initUsrSettings(thisUser,westminsterHall);
@@ -274,6 +282,7 @@ public class GUI extends JFrame{
                 super.mouseClicked(e);
                 currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
                 currFloorNum = 1;
+                currBuildingNum = 3;
                 currFloorLabel.setText("Floor: " + currFloorNum);
                 setBuilding(afar, currUser, 1);
                 //initUsrSettings(thisUser,afar);
@@ -317,7 +326,18 @@ public class GUI extends JFrame{
                 if (poiCreateMode) {
                     super.mouseClicked(e);
                     ArrayList<String> empty = new ArrayList<String>(); //empty array list of strings for favorites list
-                    new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,1,3,3, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map, currUser.getUsername(), empty);  // This line only had 10 parameters so I gave the next two nulls, as they were showing errors
+                    int layerID = 0;
+                    if (builtinCheckbox.isSelected()){
+                        layerID = layerCombobox.getSelectedIndex();
+                    }
+                    POI newPOI = new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,currBuildingNum,currFloorNum - 1,layerID, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map, currUser.getUsername(), empty);  // This line only had 10 parameters so I gave the next two nulls, as they were showing errors
+                    try {
+                        currFloor.getLayer(layerID).addPOI(newPOI);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     // Clear text fields in the creation menu after the POI is created
                     poiRoomNumber.setText("");
                     poiDescription.setText("");
@@ -472,7 +492,7 @@ public class GUI extends JFrame{
             }
         });
 
-        initWeather();
+
         searchButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -492,6 +512,13 @@ public class GUI extends JFrame{
                         }
                     }
                 }
+            }
+        });
+
+        builtinCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                layerCombobox.setVisible(builtinCheckbox.isSelected());
             }
         });
     }
@@ -532,7 +559,7 @@ public class GUI extends JFrame{
             mapWeatherIcon.setHorizontalTextPosition(SwingConstants.CENTER);
             mapWeatherIcon.setFont(weatherIcon.getFont());
             map.add(mapWeatherIcon);
-            mapWeatherIcon.setBounds((map.getWidth() / 2) - 250, 0, 75, 100);
+            mapWeatherIcon.setBounds((map.getWidth() * 9 / 24), 0, 75, 100);
 
         } catch (IOException | ParseException e) {  // Catch errors
             e.printStackTrace();  // Print error

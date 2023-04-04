@@ -24,7 +24,7 @@ public class Building {
                     new Layer("Entries/Exit", id,i,4,map, currUser),
                     new Layer("Computer Labs", id, i, 5, map, currUser),
                     new Layer("Collaboration Rooms", id,i,6,map, currUser),
-                    new Layer("User Created", id,i,7,map, currUser)
+                    new Layer("User Created", id,i,0,map, currUser)
             },i,id);
         }
     }
