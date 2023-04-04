@@ -51,7 +51,7 @@ public class GUI extends JFrame{
     private JCheckBox complabLayerCheckbox;
     private JCheckBox collabLayerCheckbox;
     private JCheckBox usercreatedLayerCheckbox;
-    private JList list1;
+    private JList layerPoiList = new JList(getPoisOnLayer());
     private boolean poiCreateMode = false;
     private String thisPoiName;
     private int thisRmNum;
@@ -75,6 +75,8 @@ public class GUI extends JFrame{
     private JLabel tempValue2;
     private JLabel conditionValue;
     private JLabel weatherIcon;
+    private JTextField searchText;
+    private JButton searchButton;
     private JLabel poiCreationLocationPrompt;
     public static User currUser;
     private static final String mapPanelCardName = "mapPanel";
@@ -471,6 +473,27 @@ public class GUI extends JFrame{
         });
 
         initWeather();
+        searchButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                String thisSearch = searchText.getText();
+                if (thisSearch == "") {
+                    JOptionPane.showMessageDialog(null, "Please include text in the search bar.");
+                }
+                else {
+                    for (Layer l : currFloor.getLayers()) {
+                        for (POI p : l.getPOIList()) {
+                            if (p.getName().contains(thisSearch)) {
+
+                               // CODE THIS AFTER POI LIST //
+
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void initWeather() {
@@ -576,5 +599,16 @@ public class GUI extends JFrame{
                 }
             }
         }
+    }
+    public POI[] getPoisOnLayer() {
+        POI[] currLayerPois = {};
+        int i = 0;
+        for (Layer l : currFloor.getLayers()) {
+            for (POI p : l.getPOIList()) {
+                currLayerPois[i] = p;
+                i++;
+            }
+        }
+        return currLayerPois;
     }
 }
