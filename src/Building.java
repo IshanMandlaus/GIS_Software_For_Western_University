@@ -18,13 +18,13 @@ public class Building {
         //loop through f and create a new floor for each
         for (int i = 0; i < numFloors; i++) {
             floors[i] = new Floor(new Layer[]{
+                    new Layer("User Created", id,i,0,map, currUser),
                     new Layer("Classrooms",id,i, 1,map, currUser),
                     new Layer("Washrooms", id,i,2,map, currUser),
                     new Layer("Restaurants", id,i,3,map, currUser),
                     new Layer("Entries/Exit", id,i,4,map, currUser),
                     new Layer("Computer Labs", id, i, 5, map, currUser),
                     new Layer("Collaboration Rooms", id,i,6,map, currUser),
-                    new Layer("User Created", id,i,0,map, currUser)
             },i,id);
         }
     }
