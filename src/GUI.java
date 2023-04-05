@@ -95,6 +95,7 @@ public class GUI extends JFrame{
     private Building westminsterHall;
     private Building afar;
     private int currBuildingNum;
+    private ListModel<POI> poiListModel;
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
@@ -533,84 +534,49 @@ public class GUI extends JFrame{
         classroomLayerCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (classroomLayerCheckbox.isSelected()) {
-                    currFloor.getLayers()[1].showLayer();
-                }
-                else {
-                    currFloor.getLayers()[1].hideLayer();
-                }
+                updateShownLayers();
             }
         });
 
         washroomsLayerCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (washroomsLayerCheckbox.isSelected()) {
-                    currFloor.getLayers()[2].showLayer();
-                }
-                else {
-                    currFloor.getLayers()[2].hideLayer();
-                }
+                updateShownLayers();
             }
         });
 
         restauLayerCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (restauLayerCheckbox.isSelected()) {
-                    currFloor.getLayers()[3].showLayer();
-                }
-                else {
-                    currFloor.getLayers()[3].hideLayer();
-                }
+                updateShownLayers();
             }
         });
 
         entryexitLayerCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (entryexitLayerCheckbox.isSelected()) {
-                    currFloor.getLayers()[4].showLayer();
-                }
-                else {
-                    currFloor.getLayers()[4].hideLayer();
-                }
+                updateShownLayers();
             }
         });
 
         genlabLayerCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (genlabLayerCheckbox.isSelected()) {
-                    currFloor.getLayers()[5].showLayer();
-                }
-                else {
-                    currFloor.getLayers()[5].hideLayer();
-                }
+                updateShownLayers();
             }
         });
 
         collabLayerCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (collabLayerCheckbox.isSelected()) {
-                    currFloor.getLayers()[6].showLayer();
-                }
-                else {
-                    currFloor.getLayers()[6].hideLayer();
-                }
+                updateShownLayers();
             }
         });
 
         usercreatedLayerCheckbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (usercreatedLayerCheckbox.isSelected()) {
-                    currFloor.getLayers()[0].showLayer();
-                }
-                else {
-                    currFloor.getLayers()[0].hideLayer();
-                }
+                updateShownLayers();
             }
         });
     }
@@ -718,16 +684,60 @@ public class GUI extends JFrame{
                 }
             }
         }
+        updateShownLayers();
     }
-    public POI[] getPoisOnLayer() {
-        POI[] currLayerPois = {};
-        int i = 0;
-        for (Layer l : currFloor.getLayers()) {
-            for (POI p : l.getPOIList()) {
-                currLayerPois[i] = p;
-                i++;
-            }
+
+    private void updateShownLayers(){
+        if (usercreatedLayerCheckbox.isSelected()) {
+            currFloor.getLayers()[0].showLayer();
         }
-        return currLayerPois;
+        else {
+            currFloor.getLayers()[0].hideLayer();
+        }
+
+        if (classroomLayerCheckbox.isSelected()) {
+            currFloor.getLayers()[1].showLayer();
+        }
+        else {
+            currFloor.getLayers()[1].hideLayer();
+        }
+
+        if (washroomsLayerCheckbox.isSelected()) {
+            currFloor.getLayers()[2].showLayer();
+        }
+        else {
+            currFloor.getLayers()[2].hideLayer();
+        }
+
+        if (restauLayerCheckbox.isSelected()) {
+            currFloor.getLayers()[3].showLayer();
+        }
+        else {
+            currFloor.getLayers()[3].hideLayer();
+        }
+
+        if (entryexitLayerCheckbox.isSelected()) {
+            currFloor.getLayers()[4].showLayer();
+        }
+        else {
+            currFloor.getLayers()[4].hideLayer();
+        }
+
+        if (complabLayerCheckbox.isSelected()) {
+            currFloor.getLayers()[5].showLayer();
+        }
+        else {
+            currFloor.getLayers()[5].hideLayer();
+        }
+
+        if (collabLayerCheckbox.isSelected()) {
+            currFloor.getLayers()[6].showLayer();
+        }
+        else {
+            currFloor.getLayers()[6].hideLayer();
+        }
+    }
+    public void configurePOIList(){
+
     }
 }

@@ -427,14 +427,6 @@
                   <text value="Collab Rooms"/>
                 </properties>
               </component>
-              <component id="18c18" class="javax.swing.JList" binding="layerPoiList">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="50"/>
-                  </grid>
-                </constraints>
-                <properties/>
-              </component>
               <vspacer id="820d0">
                 <constraints>
                   <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="2" fill="0" indent="0" use-parent-layout="false">
@@ -474,6 +466,21 @@
                   </grid>
                 </constraints>
               </vspacer>
+              <scrollpane id="e3780">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="18c18" class="javax.swing.JList" binding="layerPoiList">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
           <component id="33609" class="javax.swing.JLabel" binding="mapsMenuCloseButton">
