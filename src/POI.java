@@ -19,7 +19,7 @@ public class POI extends JButton{
     private ImageIcon icon;
     private String creatingUsr;
     //private string array of users
-    private ArrayList<String> favUsers = new ArrayList<String>();
+    private ArrayList<String> favUsers;
     private static final int USER_CREATED = 0;
     private static final int CLASSROOM = 1;
     private static final int WASHROOM = 2;
@@ -50,29 +50,15 @@ public class POI extends JButton{
 
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
         parent.add(this);
-        String imagePath;
-        switch ((int) layerID){
-            case CLASSROOM:
-                imagePath = "Icons/classroom.png";
-                break;
-            case WASHROOM:
-                imagePath = "Icons/washroom.png";
-                break;
-            case RESTAURANT:
-                imagePath = "Icons/restaurant.png";
-                break;
-            case EXIT:
-                imagePath = "Icons/exit.png";
-                break;
-            case COMPUTER_LAB:
-                imagePath = "Icons/computer-lab.png";
-                break;
-            case COLLAB:
-                imagePath = "Icons/collab.png";
-                break;
-            default:
-                imagePath = "Icons/user.png";
-        }
+        String imagePath = switch ((int) layerID) {
+            case CLASSROOM -> "Icons/classroom.png";
+            case WASHROOM -> "Icons/washroom.png";
+            case RESTAURANT -> "Icons/restaurant.png";
+            case EXIT -> "Icons/exit.png";
+            case COMPUTER_LAB -> "Icons/computer-lab.png";
+            case COLLAB -> "Icons/collab.png";
+            default -> "Icons/user.png";
+        };
 
         icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
         this.setIcon(icon);
@@ -84,10 +70,10 @@ public class POI extends JButton{
 
                 Object[] possibilities;
                 if (!builtin || layer.getCurrUser().getUsername().equals("saad")) {
-                     possibilities = new Object[]{"None", "Add To Favourites", "Delete"};
+                     possibilities = new Object[]{"None", "Add To Favourites", "Remove From Favourites", "Delete"};
                 }
                 else{
-                    possibilities = new Object[]{"None", "Add To Favourites"};
+                    possibilities = new Object[]{"None", "Add To Favourites", "Remove From Favourites"};
                 }
                 String s = "None";
                 s = (String)JOptionPane.showInputDialog(
@@ -98,30 +84,40 @@ public class POI extends JButton{
                         icon,
                         possibilities,
                         "None");
-                if (s.equals("Delete")){
-                    try {
-                        layer.removePOI(layer.getPOI(relative_x));
-                        setVisible(false);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ParseException ex) {
-                        throw new RuntimeException(ex);
+                switch (s) {
+                    case "Delete" -> {
+                        try {
+                            layer.removePOI(layer.getPOI(relative_x));
+                            setVisible(false);
+                        } catch (IOException | ParseException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
-                } else if (s.equals("Add To Favourites")) {
-                    favUsers.add(layer.getCurrUser().getUsername());
-                    try {
-                        layer.removePOI(POI.this);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ParseException ex) {
-                        throw new RuntimeException(ex);
+                    case "Add To Favourites" -> {
+                        favUsers.add(layer.getCurrUser().getUsername());
+                        try {
+                            layer.removePOI(POI.this);
+                        } catch (IOException | ParseException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        try {
+                            layer.addPOI(POI.this);
+                        } catch (IOException | ParseException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
-                    try {
-                        layer.addPOI(POI.this);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    } catch (ParseException ex) {
-                        throw new RuntimeException(ex);
+                    case "Remove From Favourites" -> {
+                        favUsers.remove(layer.getCurrUser().getUsername());
+                        try {
+                            layer.removePOI(POI.this);
+                        } catch (IOException | ParseException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        try {
+                            layer.addPOI(POI.this);
+                        } catch (IOException | ParseException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                 }
             }
@@ -131,15 +127,9 @@ public class POI extends JButton{
     public void updatePosition(){
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
     }
-
     public Layer getContainingLayer() {
         return containingLayer;
     }
-
-    public void setLayerID(long layerID) {
-        this.layerID = layerID;
-    }
-
     public Boolean getBuiltin() {
         return builtin;
     }
