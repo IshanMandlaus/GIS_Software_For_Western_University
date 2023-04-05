@@ -248,6 +248,14 @@ public class GUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(mainPanel, loginPanelCardName);
+                for (Building b : buildings){
+                    for (Floor f : b.getFloors()){
+                        for (Layer l : f.getLayers()){
+                            l.hideLayer();
+                        }
+                    }
+                }
+
             }
         });
         middlesexThumbnail.addMouseListener(new MouseAdapter() {
@@ -330,7 +338,7 @@ public class GUI extends JFrame{
                     if (builtinCheckbox.isSelected()){
                         layerID = layerCombobox.getSelectedIndex();
                     }
-                    POI newPOI = new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,currBuildingNum,currFloorNum - 1,layerID, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map, currUser.getUsername(), empty);  // This line only had 10 parameters so I gave the next two nulls, as they were showing errors
+                    POI newPOI = new POI(builtinCheckbox.isSelected(), thisPoiName, thisRmNum, thisDescription,currBuildingNum,currFloorNum - 1,layerID, (e.getPoint().getX() - 12) / mapContainer.getSize().getWidth(), (e.getPoint().getY() - 12) / mapContainer.getSize().getHeight(), map, currUser.getUsername(), empty, currFloor.getLayer(layerID));  // This line only had 10 parameters so I gave the next two nulls, as they were showing errors
                     try {
                         currFloor.getLayer(layerID).addPOI(newPOI);
                     } catch (IOException ex) {

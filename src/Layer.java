@@ -71,14 +71,12 @@ public class Layer {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("jsonfiles/POI.json"));
         JSONArray poiInJSON = (JSONArray) obj;
-        int index = 0;
         for (Object o : poiInJSON) {
             JSONObject poiObj = (JSONObject) o;
-            if (poiObj.get("name") == poi.getName()) {
-                poiInJSON.remove(index);
+            if ((double)poiObj.get("relative_x") == poi.getRelativeX()) {
+                poiInJSON.remove(poiObj);
                 break;
             }
-            index++;
         }
         FileWriter file = new FileWriter("jsonfiles/POI.json");
         file.write(poiInJSON.toJSONString());
@@ -108,7 +106,7 @@ public class Layer {
                 long rmNum = (long)  poi.get("roomNumber");
                 String creatingUsr = (String) poi.get("creatingUsr");
                 ArrayList<String> favUsers = (ArrayList<String>) poi.get("favUsers");
-                POI newPOI = new POI(builtin, name, rmNum, description, buildingID, floorID, layerID, relative_x, relative_y, parent, creatingUsr, favUsers);
+                POI newPOI = new POI(builtin, name, rmNum, description, buildingID, floorID, layerID, relative_x, relative_y, parent, creatingUsr, favUsers, this);
                 POIList.add(newPOI);
             }
         }
@@ -130,5 +128,9 @@ public class Layer {
     }
     public long getFloorID() {
         return floorID;
+    }
+
+    public User getCurrUser() {
+        return currUser;
     }
 }

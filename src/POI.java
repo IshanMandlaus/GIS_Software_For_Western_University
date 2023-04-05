@@ -1,7 +1,10 @@
+import org.json.simple.parser.ParseException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class POI extends JButton {
@@ -28,7 +31,7 @@ public class POI extends JButton {
     long floorID, buildingID, layerID;
 
     public POI(boolean builtin, String name, long roomNumber, String description, long buildingID, long floorID,
-               long layerID, double relative_x, double relative_y, JLabel parent, String creatingUsr, ArrayList<String> favUsers) {
+               long layerID, double relative_x, double relative_y, JLabel parent, String creatingUsr, ArrayList<String> favUsers, Layer layer) {
         super("");
         this.builtin = builtin;
         this.name = name;
@@ -76,17 +79,33 @@ public class POI extends JButton {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                
-                Object[] possibilities = {"Add To Favourites", "Delete"};
 
-                String s = (String)JOptionPane.showInputDialog(
+                Object[] possibilities;
+                if (!builtin || layer.getCurrUser().getUsername().equals("saad")) {
+                     possibilities = new Object[]{"None", "Add To Favourites", "Delete"};
+                }
+                else{
+                    possibilities = new Object[]{"None", "Add To Favourites"};
+                }
+                String s = "None";
+                s = (String)JOptionPane.showInputDialog(
                         parent,
                         "Room " + roomNumber + "\n" + description,
                         name,
                         JOptionPane.PLAIN_MESSAGE,
                         icon,
                         possibilities,
-                        "Add To Favourites");
+                        "None");
+                if (s.equals("Delete")){
+                    try {
+                        layer.removePOI(layer.getPOI(name));
+                        setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
         });
     }
