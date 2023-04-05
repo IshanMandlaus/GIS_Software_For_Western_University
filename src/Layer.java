@@ -1,12 +1,13 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import javax.swing.*;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 //create constants for the layer names, CLASSROOM=0, etc.
 
 public class Layer {
@@ -110,7 +111,6 @@ public class Layer {
                 POIList.add(newPOI);
             }
         }
-
     }
     //getter for entire POI list
     public ArrayList<POI> getPOIList() {

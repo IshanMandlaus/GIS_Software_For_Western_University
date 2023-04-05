@@ -529,6 +529,90 @@ public class GUI extends JFrame{
                 layerCombobox.setVisible(builtinCheckbox.isSelected());
             }
         });
+
+        classroomLayerCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (classroomLayerCheckbox.isSelected()) {
+                    currFloor.getLayers()[1].showLayer();
+                }
+                else {
+                    currFloor.getLayers()[1].hideLayer();
+                }
+            }
+        });
+
+        washroomsLayerCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (washroomsLayerCheckbox.isSelected()) {
+                    currFloor.getLayers()[2].showLayer();
+                }
+                else {
+                    currFloor.getLayers()[2].hideLayer();
+                }
+            }
+        });
+
+        restauLayerCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (restauLayerCheckbox.isSelected()) {
+                    currFloor.getLayers()[3].showLayer();
+                }
+                else {
+                    currFloor.getLayers()[3].hideLayer();
+                }
+            }
+        });
+
+        entryexitLayerCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (entryexitLayerCheckbox.isSelected()) {
+                    currFloor.getLayers()[4].showLayer();
+                }
+                else {
+                    currFloor.getLayers()[4].hideLayer();
+                }
+            }
+        });
+
+        genlabLayerCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (genlabLayerCheckbox.isSelected()) {
+                    currFloor.getLayers()[5].showLayer();
+                }
+                else {
+                    currFloor.getLayers()[5].hideLayer();
+                }
+            }
+        });
+
+        collabLayerCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (collabLayerCheckbox.isSelected()) {
+                    currFloor.getLayers()[6].showLayer();
+                }
+                else {
+                    currFloor.getLayers()[6].hideLayer();
+                }
+            }
+        });
+
+        usercreatedLayerCheckbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (usercreatedLayerCheckbox.isSelected()) {
+                    currFloor.getLayers()[0].showLayer();
+                }
+                else {
+                    currFloor.getLayers()[0].hideLayer();
+                }
+            }
+        });
     }
 
     private void initWeather() {
