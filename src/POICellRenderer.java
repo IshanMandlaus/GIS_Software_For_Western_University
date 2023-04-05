@@ -38,5 +38,9 @@
 
         return this;
     }
+
+    public void searchFunction() {
+        setBackground(new Color(255,215,0));
+    }
 }
 

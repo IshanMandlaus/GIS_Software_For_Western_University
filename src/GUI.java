@@ -508,7 +508,6 @@ public class GUI extends JFrame{
             }
         });
 
-
         searchButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -520,10 +519,11 @@ public class GUI extends JFrame{
                 else {
                     for (Layer l : currFloor.getLayers()) {
                         for (POI p : l.getPOIList()) {
-                            if (p.getName().contains(thisSearch)) {
-
-                               // CODE THIS AFTER POI LIST //
-
+                            if (p.getName().toLowerCase().contains(thisSearch)) {
+                                p.setBackground(Color.RED);
+                            }
+                            else {
+                                p.setBackground(new Color(238,238,238));
                             }
                         }
                     }
