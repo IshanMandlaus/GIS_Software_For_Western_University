@@ -477,7 +477,9 @@
                 <children>
                   <component id="18c18" class="javax.swing.JList" binding="layerPoiList">
                     <constraints/>
-                    <properties/>
+                    <properties>
+                      <selectionMode value="0"/>
+                    </properties>
                   </component>
                 </children>
               </scrollpane>

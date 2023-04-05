@@ -5,6 +5,7 @@ import org.json.simple.parser.ParseException;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -95,7 +96,7 @@ public class GUI extends JFrame{
     private Building westminsterHall;
     private Building afar;
     private int currBuildingNum;
-    private ListModel<POI> poiListModel;
+    private DefaultListModel poiListModel;
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
@@ -127,6 +128,11 @@ public class GUI extends JFrame{
         map.setBounds(0, 0, 1920, 1080);
         mapContainer.add(map, 0);
         initWeather();
+
+        poiListModel = new DefaultListModel();
+        layerPoiList.setCellRenderer(new POICellRenderer());
+
+
         //////////////////////////////FREE YE//////////////////DONT DELETE THIS NECESSARY FOR THINGS TO WORK/////////////////////////////////////////////////////////
         int offset = 11111-11111+11111-11111+11111-11111+11111-11111+11111-11111+11111-11110;///////////////////////////
         //////////////////////////////INITIALIZE 3 BUILDING OBJECTS/////////////////////////////////////////////////////
@@ -238,6 +244,7 @@ public class GUI extends JFrame{
                     currFloor = middlesex.getFloor(currFloorNum);
                     //System.out.println("Current user is " + currUser.getUsername());
                     setBuilding(middlesex, currUser, currFloorNum);
+                    layerPoiList.setModel(poiListModel);
                     currFloorLabel.setText("Floor: " + currFloorNum);
                 }
                 else {
@@ -579,6 +586,28 @@ public class GUI extends JFrame{
                 updateShownLayers();
             }
         });
+
+        layerPoiList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int selectedIndex = layerPoiList.getSelectedIndex();
+                for (Layer l : currFloor.getLayers()){
+                    for (POI p : l.getPOIList()){
+                        if (p.equals(poiListModel.getElementAt(selectedIndex))){
+                            p.setBackground(Color.RED);
+                            p.setBounds(p.getX(), p.getY(), 28, 28);
+                            currFloor.getLayer(p.getLayerID().intValue()).showLayer();
+
+                        }
+                        else{
+                            p.setBackground(new Color(238,238,238));
+                            p.setBounds(p.getX(), p.getY(), 24, 24);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void initWeather() {
@@ -659,6 +688,8 @@ public class GUI extends JFrame{
             l.showLayer();
 
             for (POI p : l.getPOIList()){
+                p.setBackground(new Color(238,238,238));
+                p.setBounds(p.getX(), p.getY(), 24, 24);
                 //System.out.println("looking at POI made by: " + p.getCreatingUsr());
                 if (p.getCreatingUsr() == null){
                     //null creating user. if its not builtin, hide it
@@ -684,6 +715,7 @@ public class GUI extends JFrame{
                 }
             }
         }
+        configurePOIList();
         updateShownLayers();
     }
 
@@ -738,6 +770,13 @@ public class GUI extends JFrame{
         }
     }
     public void configurePOIList(){
-
+        poiListModel.removeAllElements();
+        for (Layer l : currFloor.getLayers()){
+            for(POI p : l.getPOIList()){
+                if (p.isVisible()){
+                    poiListModel.addElement(p);
+                }
+            }
+        }
     }
 }

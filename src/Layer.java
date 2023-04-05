@@ -52,7 +52,7 @@ public class Layer {
         newPOI.put("relative_x", poi.getRelativeX());
         newPOI.put("relative_y", poi.getRelativeY());
         newPOI.put("creatingUsr", currUser.getUsername());
-        newPOI.put("favUsers", new ArrayList<String>());
+        newPOI.put("favUsers", poi.getFavUsers());
         FileWriter file = new FileWriter("jsonfiles/POI.json");
         try {
             poiInJSON.add(newPOI);
@@ -116,9 +116,9 @@ public class Layer {
     public ArrayList<POI> getPOIList() {
         return POIList;
     }
-    public POI getPOI(String name){
+    public POI getPOI(double relative_x){
         for (POI p : POIList){
-            if (p.getName().equals(name))
+            if (p.getRelativeX() == relative_x)
                 {return p;} //returning null because it may not be adding layers or adding POIs into the layers or reading the JSON file
         }
         return null;

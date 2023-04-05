@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class POI extends JButton {
+public class POI extends JButton{
     private boolean builtin;
     private String name;
     private long roomNumber;
@@ -15,6 +15,7 @@ public class POI extends JButton {
     private double relative_x;
     private double relative_y;
     private JLabel parent;
+    private Layer containingLayer;
     private ImageIcon icon;
     private String creatingUsr;
     //private string array of users
@@ -45,6 +46,7 @@ public class POI extends JButton {
         this.parent = parent;
         this.creatingUsr = creatingUsr;
         this.favUsers= favUsers;
+        this.containingLayer = layer;
 
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
         parent.add(this);
@@ -98,8 +100,24 @@ public class POI extends JButton {
                         "None");
                 if (s.equals("Delete")){
                     try {
-                        layer.removePOI(layer.getPOI(name));
+                        layer.removePOI(layer.getPOI(relative_x));
                         setVisible(false);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else if (s.equals("Add To Favourites")) {
+                    favUsers.add(layer.getCurrUser().getUsername());
+                    try {
+                        layer.removePOI(POI.this);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    try {
+                        layer.addPOI(POI.this);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     } catch (ParseException ex) {
@@ -113,6 +131,11 @@ public class POI extends JButton {
     public void updatePosition(){
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
     }
+
+    public Layer getContainingLayer() {
+        return containingLayer;
+    }
+
     public void setLayerID(long layerID) {
         this.layerID = layerID;
     }
