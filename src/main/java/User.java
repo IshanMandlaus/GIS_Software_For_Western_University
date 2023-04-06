@@ -74,7 +74,7 @@ public class User {
         boolean validUser = false;
 
         try {
-            Object obj = parser.parse(new FileReader("jsonfiles/users.json"));
+            Object obj = parser.parse(new FileReader("src/jsonfiles/users.json"));
             JSONObject jsonObject = (JSONObject) obj;
             JSONArray users = (JSONArray) jsonObject.get("users");
 

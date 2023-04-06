@@ -85,7 +85,7 @@ public class Layer {
         POIList.add(poi);
         JSONObject newPOI = new JSONObject();
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader("jsonfiles/POI.json"));
+        Object obj = parser.parse(new FileReader("src/jsonfiles/POI.json"));
         JSONArray poiInJSON = (JSONArray) obj;
 
         // Populate the new JSON object with the properties of the POI object
@@ -101,7 +101,7 @@ public class Layer {
         newPOI.put("creatingUsr", currUser.getUsername());
         newPOI.put("favUsers", poi.getFavUsers());
 
-        FileWriter file = new FileWriter("jsonfiles/POI.json");
+        FileWriter file = new FileWriter("src/jsonfiles/POI.json");
         try {
             poiInJSON.add(newPOI); // Add the new POI object to the JSON array
             file.write(poiInJSON.toJSONString()); // Write the updated JSON array to the file
@@ -125,7 +125,7 @@ public class Layer {
 
         //remove POI from JSON file
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(new FileReader("jsonfiles/POI.json"));
+        Object obj = parser.parse(new FileReader("src/jsonfiles/POI.json"));
         JSONArray poiInJSON = (JSONArray) obj;
         for (Object o : poiInJSON) {
             JSONObject poiObj = (JSONObject) o;
@@ -134,7 +134,7 @@ public class Layer {
                 break;
             }
         }
-        FileWriter file = new FileWriter("jsonfiles/POI.json");
+        FileWriter file = new FileWriter("src/jsonfiles/POI.json");
         file.write(poiInJSON.toJSONString());
         file.flush();
     }
@@ -149,7 +149,7 @@ public class Layer {
     public void readJSON(long bID, long fID) throws IOException, ParseException {
         //reads the JSON file and adds POIs to POIList if they have the same id as this layer
         JSONParser parser = new JSONParser();
-        FileReader r = new FileReader("jsonfiles/POI.json");
+        FileReader r = new FileReader("src/jsonfiles/POI.json");
         Object obj = parser.parse(r);
         JSONArray poiInJSON = (JSONArray) obj;
         //iterate over poiList and add POIs to POIList if they have the same layer id as this layer

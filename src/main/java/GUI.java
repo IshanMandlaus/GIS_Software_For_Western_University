@@ -5,12 +5,9 @@ import org.json.simple.parser.ParseException;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -90,9 +87,9 @@ public class GUI extends JFrame{
     private Floor currFloor;
     private Building[] buildings = new Building[3];
     private String[][] maps = {
-            {"Maps/MC-BF/MC-BF-1.png", "Maps/MC-BF/MC-BF-2.png", "Maps/MC-BF/MC-BF-3.png", "Maps/MC-BF/MC-BF-4.png", "Maps/MC-BF/MC-BF-5.png"},
-            {"Maps/WH-BF/WH-BF-1.png", "Maps/WH-BF/WH-BF-2.png", "Maps/WH-BF/WH-BF-3.png", "Maps/WH-BF/WH-BF-4.png"},
-            {"Maps/AFAR-BF/AFAR-BF-1.png", "Maps/AFAR-BF/AFAR-BF-2.png"}};
+            {"src/Maps/MC-BF/MC-BF-1.png", "src/Maps/MC-BF/MC-BF-2.png", "src/Maps/MC-BF/MC-BF-3.png", "src/Maps/MC-BF/MC-BF-4.png", "src/Maps/MC-BF/MC-BF-5.png"},
+            {"src/Maps/WH-BF/WH-BF-1.png", "src/Maps/WH-BF/WH-BF-2.png", "src/Maps/WH-BF/WH-BF-3.png", "src/Maps/WH-BF/WH-BF-4.png"},
+            {"src/Maps/AFAR-BF/AFAR-BF-1.png", "src/Maps/AFAR-BF/AFAR-BF-2.png"}};
     private int currFloorNum;
     private Building middlesex;
     private Building westminsterHall;
@@ -104,21 +101,21 @@ public class GUI extends JFrame{
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
 
-        currMap = "Maps/MC-BF/MC-BF-1.png";
+        currMap = "src/Maps/MC-BF/MC-BF-1.png";
         currBuildingNum = 1;
         currFloorNum = 1;
 
         setTitle(title);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        userProfileImage.setIcon(resizedImageIcon("Icons/lw.png", 100, 100));
-        middlesexThumbnail.setIcon(resizedImageIcon("Thumbnails/MC.jpg", 100, 100));
-        westminsterhallThumbnail.setIcon(resizedImageIcon("Thumbnails/WH.jfif", 100, 100));
-        afarThumbnail.setIcon(resizedImageIcon("Thumbnails/AFAR.jfif", 100, 100));
-        mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
-        poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
-        userLoginHelp.setIcon(resizedImageIcon("Icons/help.png", 40, 40));
-        upButton.setIcon(resizedImageIcon("Icons/up-arrow.png", 48,48));
-        downButton.setIcon(resizedImageIcon("Icons/down-arrow.png", 48, 48));
+        userProfileImage.setIcon(resizedImageIcon("src/Icons/lw.png", 100, 100));
+        middlesexThumbnail.setIcon(resizedImageIcon("src/Thumbnails/MC.jpg", 100, 100));
+        westminsterhallThumbnail.setIcon(resizedImageIcon("src/Thumbnails/WH.jfif", 100, 100));
+        afarThumbnail.setIcon(resizedImageIcon("src/Thumbnails/AFAR.jfif", 100, 100));
+        mapsMenuCloseButton.setIcon(resizedImageIcon("src/Icons/left-arrow.png", 20, 20));
+        poiMenuCloseButton.setIcon(resizedImageIcon("src/Icons/right-arrow.png", 20, 20));
+        userLoginHelp.setIcon(resizedImageIcon("src/Icons/help.png", 40, 40));
+        upButton.setIcon(resizedImageIcon("src/Icons/up-arrow.png", 48,48));
+        downButton.setIcon(resizedImageIcon("src/Icons/down-arrow.png", 48, 48));
 
         upButton.setFocusPainted(false);
         upButton.setContentAreaFilled(false);
@@ -159,7 +156,7 @@ public class GUI extends JFrame{
         ////////////////v/////v///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////COMMENT THIS OUT TO SILENCE MUSIC////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         AudioInputStream audioStream = null; try {
-            File file = new File("Icons/li.wav");audioStream = AudioSystem.getAudioInputStream(file);
+            File file = new File("src/Icons/li.wav");audioStream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();clip.open(audioStream);clip.start();} catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {System.err.println(ex);} finally {try {if (audioStream != null) {audioStream.close();}} catch (IOException ex) {System.err.println(ex);}}
         ///////////////////////^/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////^/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -275,7 +272,7 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                currMap = "Maps/MC-BF/MC-BF-1.png";
+                currMap = "src/Maps/MC-BF/MC-BF-1.png";
                 currFloorNum = 1;
                 currBuildingNum = 1;
                 currFloorLabel.setText("Floor: " + currFloorNum);
@@ -288,7 +285,7 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                currMap = "Maps/WH-BF/WH-BF-1.png";
+                currMap = "src/Maps/WH-BF/WH-BF-1.png";
                 currFloorNum = 1;
                 currBuildingNum = 2;
                 currFloorLabel.setText("Floor: " + currFloorNum);
@@ -301,7 +298,7 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                currMap = "Maps/AFAR-BF/AFAR-BF-1.png";
+                currMap = "src/Maps/AFAR-BF/AFAR-BF-1.png";
                 currFloorNum = 1;
                 currBuildingNum = 3;
                 currFloorLabel.setText("Floor: " + currFloorNum);
@@ -318,10 +315,10 @@ public class GUI extends JFrame{
                     super.mouseClicked(e);
                     if (mapMenu.isVisible()) {
                         mapMenu.setVisible(false);
-                        mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
+                        mapsMenuCloseButton.setIcon(resizedImageIcon("src/Icons/right-arrow.png", 20, 20));
                     } else {
                         mapMenu.setVisible(true);
-                        mapsMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
+                        mapsMenuCloseButton.setIcon(resizedImageIcon("src/Icons/left-arrow.png", 20, 20));
                     }
                 }
             }
@@ -333,10 +330,10 @@ public class GUI extends JFrame{
                     super.mouseClicked(e);
                     if (poiMenu.isVisible()) {
                         poiMenu.setVisible(false);
-                        poiMenuCloseButton.setIcon(resizedImageIcon("Icons/left-arrow.png", 20, 20));
+                        poiMenuCloseButton.setIcon(resizedImageIcon("src/Icons/left-arrow.png", 20, 20));
                     } else {
                         poiMenu.setVisible(true);
-                        poiMenuCloseButton.setIcon(resizedImageIcon("Icons/right-arrow.png", 20, 20));
+                        poiMenuCloseButton.setIcon(resizedImageIcon("src/Icons/right-arrow.png", 20, 20));
                     }
                 }
             }
@@ -676,7 +673,7 @@ public class GUI extends JFrame{
         device.setFullScreenWindow(frame);
 
         frame.setVisible(true);
-        ImageIcon logo = new ImageIcon("Icons/logo.png");
+        ImageIcon logo = new ImageIcon("src/Icons/logo.png");
         frame.setIconImage(logo.getImage());
     }
 

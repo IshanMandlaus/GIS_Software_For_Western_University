@@ -7,9 +7,6 @@
 
     <name>GIS System</name>
     <description>An Application to view Maps in UWO</description>
-    <modules>
-        <module>untitled</module>
-    </modules>
 
     <groupId>com.cs2212.gis</groupId>
     <artifactId>CS2212</artifactId>
@@ -20,6 +17,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->

@@ -51,13 +51,13 @@ public class POI extends JButton{
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
         parent.add(this);
         String imagePath = switch ((int) layerID) {
-            case CLASSROOM -> "Icons/classroom.png";
-            case WASHROOM -> "Icons/washroom.png";
-            case RESTAURANT -> "Icons/restaurant.png";
-            case EXIT -> "Icons/exit.png";
-            case COMPUTER_LAB -> "Icons/computer-lab.png";
-            case COLLAB -> "Icons/collab.png";
-            default -> "Icons/user.png";
+            case CLASSROOM -> "src/Icons/classroom.png";
+            case WASHROOM -> "src/Icons/washroom.png";
+            case RESTAURANT -> "src/Icons/restaurant.png";
+            case EXIT -> "src/Icons/exit.png";
+            case COMPUTER_LAB -> "src/Icons/computer-lab.png";
+            case COLLAB -> "src/Icons/collab.png";
+            default -> "src/Icons/user.png";
         };
 
         icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
