@@ -9,6 +9,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -97,6 +99,7 @@ public class GUI extends JFrame{
     private Building afar;
     private int currBuildingNum;
     private DefaultListModel poiListModel;
+    private static final Color PURPLE = new Color(128,64,168);
 
     public GUI(String title) throws HeadlessException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException {
         CardLayout cardLayout = (CardLayout)mainPanel.getLayout();
@@ -131,6 +134,8 @@ public class GUI extends JFrame{
 
         poiListModel = new DefaultListModel();
         layerPoiList.setCellRenderer(new POICellRenderer());
+        layerPoiList.setSelectionBackground(PURPLE);
+        layerPoiList.setSelectionForeground(Color.WHITE);
 
 
         //////////////////////////////FREE YE//////////////////DONT DELETE THIS NECESSARY FOR THINGS TO WORK/////////////////////////////////////////////////////////
@@ -520,10 +525,11 @@ public class GUI extends JFrame{
                     for (Layer l : currFloor.getLayers()) {
                         for (POI p : l.getPOIList()) {
                             if (p.getName().toLowerCase().contains(thisSearch)) {
-                                p.setBackground(Color.RED);
+                                layerPoiList.setSelectedValue(p, true);
+                                highlight(p);
                             }
                             else {
-                                p.setBackground(new Color(238,238,238));
+                                unhighlight(p);
                             }
                         }
                     }
@@ -591,25 +597,33 @@ public class GUI extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                int selectedIndex = layerPoiList.getSelectedIndex();
-                for (Layer l : currFloor.getLayers()){
-                    for (POI p : l.getPOIList()){
-                        if (p.equals(poiListModel.getElementAt(selectedIndex))){
-                            p.setBackground(Color.RED);
-                            p.setBounds(p.getX(), p.getY(), 28, 28);
-                            currFloor.getLayer(p.getLayerID().intValue()).showLayer();
-
-                        }
-                        else{
-                            p.setBackground(new Color(238,238,238));
-                            p.setBounds(p.getX(), p.getY(), 24, 24);
-                        }
-                    }
-                }
+                highlightSelectedPOI();
             }
         });
     }
 
+    private void highlightSelectedPOI(){
+        int selectedIndex = layerPoiList.getSelectedIndex();
+        for (Layer l : currFloor.getLayers()){
+            for (POI p : l.getPOIList()){
+                if (p.equals(poiListModel.getElementAt(selectedIndex))){
+                    highlight(p);
+                }
+                else{
+                    unhighlight(p);
+                }
+            }
+        }
+    }
+    private void highlight(POI p){
+        p.setBackground(PURPLE);
+        p.setBounds(p.getX(), p.getY(), 28, 28);
+        currFloor.getLayer(p.getLayerID().intValue()).showLayer();
+    }
+    private void unhighlight(POI p){
+        p.setBackground(new Color(238,238,238));
+        p.setBounds(p.getX(), p.getY(), 24, 24);
+    }
     private void initWeather() {
         try {
             URL url = new URL("https://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + city);  // Get weather data from API
