@@ -17,6 +17,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The class that represents the GUI for the CUAMPES-ACGISANT application. It allows a user to login, view maps,
+ *
+ * @author Paul Francis Jarabek Moore
+ * @author Muhammad Ansari
+ * @author Saad Mahmood
+ * @author Andrew Bao
+ * @author Ishan Mandlaue
+ *
+ * @version 1.0
+ *
+ * @see
+ */
+
 public class GUI extends JFrame{
     private String apiKey = "c0cca6d6fb6f4eb291651603230104";
     private String city = "London,%20ON";
@@ -621,6 +635,10 @@ public class GUI extends JFrame{
         p.setBackground(new Color(238,238,238));
         p.setBounds(p.getX(), p.getY(), 24, 24);
     }
+
+    /**
+     * Updates and displays the weather information
+     */
     private void initWeather() {
         try {
             URL url = new URL("https://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + city);  // Get weather data from API
@@ -635,7 +653,7 @@ public class GUI extends JFrame{
             }
             in.close();  // Close connection
 
-            // Parse each responses like the current temp, icon, conditions, etc.
+            /** Parse each responses like the current temp, icon, conditions, etc.*/
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(content.toString());
             JSONObject current = (JSONObject) json.get("current");
@@ -644,13 +662,14 @@ public class GUI extends JFrame{
             String conText = (String)condition.get("text");
             String conIcon = (String)condition.get("icon");
 
+            /** Set weather icon and label */
             URL url2 = new URL("http:" + conIcon);  // Get weather icon from API
             BufferedImage image = ImageIO.read(url2);  // Read response
             ImageIcon resizedConIcon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(75, 75, Image.SCALE_SMOOTH));
             weatherIcon.setIcon(resizedConIcon);  // Set weather icon
             weatherIcon.setText(temperature + "°C");
 
-            // Create and place weather label on map
+            /** Set map weather icon and label */
             JLabel mapWeatherIcon = new JLabel(resizedConIcon);
             mapWeatherIcon.setText(temperature + "°C");
             mapWeatherIcon.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -659,6 +678,7 @@ public class GUI extends JFrame{
             map.add(mapWeatherIcon);
             mapWeatherIcon.setBounds((map.getWidth() * 9 / 24), 0, 75, 100);
 
+        /** Catch errors */
         } catch (IOException | ParseException e) {  // Catch errors
             e.printStackTrace();  // Print error
         }
