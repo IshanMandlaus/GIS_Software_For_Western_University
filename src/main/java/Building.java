@@ -57,6 +57,11 @@ public class Building {
             }, i, id);
         }
     }
+    public Building(String buildingName, int numFloors, int id) throws IOException, ParseException {
+        this.buildingName = buildingName;
+        this.id = id;
+        this.floors = new Floor[numFloors];
+    }
 
     /**
      * Returns the floor at the specified index.
