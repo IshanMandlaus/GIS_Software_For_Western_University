@@ -691,7 +691,11 @@ public class GUI extends JFrame{
 
         /** Catch errors */
         } catch (IOException | ParseException e) {  // Catch errors
-            e.printStackTrace();  // Print error
+            if (e instanceof java.net.UnknownHostException) {  // Catch an error if there is no internet connection
+                System.out.println("No Internet Connection");  // Print the error message
+            } else {
+                e.printStackTrace();  // Print error
+            }
         }
     }
 
