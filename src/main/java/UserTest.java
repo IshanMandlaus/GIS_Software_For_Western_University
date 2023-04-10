@@ -24,7 +24,7 @@ class UserTest {
         Assertions.assertEquals(pointOfInterest, user.favourites.get(0));
 
     }
-
+//j
     @Test
     public void testCreatePOI() {
         User user = new User("mansar33", "password");
