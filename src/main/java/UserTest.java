@@ -95,20 +95,21 @@ class UserTest {
          * The third and fourth lines of code are used to test the isValidCredentials method for an invalid user
          */
         String validUser = "mansar33";
-        char[] validPass = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
-        String invalidUser = "invalid";
-        char[] invalidPass = {'i', 'n', 'v', 'a', 'l', 'i', 'd'};
+        char[] validPassword = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd'};
+        String invalidUser = "mansar34";
+        char[] invalidPassword = {'p', 'a', 's', 's', 'w', 'o', 'r', 'd', 's'};
 
-        boolean valid = User.isValidCredentials(validUser, validPass);
-        boolean invalid = User.isValidCredentials(invalidUser, invalidPass);
+        boolean correct = User.isValidCredentials(validUser, validPassword);
+        boolean incorrect = User.isValidCredentials(invalidUser, invalidPassword);
 
         /**
          * The following line of code is used to test the isValidCredentials method
          * The assertTrue and assertFalse methods are used to test if the method returns the correct boolean value
          */
         Assertions.assertAll(
-                () -> assertTrue(valid),
-                () -> assertFalse(invalid));
+                () -> assertTrue(correct),
+                () -> assertFalse(incorrect));
+
     }
 
     /**
