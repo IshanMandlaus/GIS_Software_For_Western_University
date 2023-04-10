@@ -214,4 +214,8 @@ public class Layer {
     public User getCurrUser() {
         return currUser;
     }
+    //getter for layer ID
+    public long getLayerID() {
+        return layerID;
+    }
 }
