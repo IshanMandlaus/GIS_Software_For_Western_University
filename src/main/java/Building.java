@@ -61,7 +61,6 @@ public class Building {
         this.buildingName = buildingName;
         this.id = id;
         this.floors = new Floor[numFloors];
-        this.map = map;
     }
 
     /**
