@@ -60,6 +60,7 @@ public class POI extends JButton{
             default -> "src/Icons/user.png";
         };
 
+
         icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
         this.setIcon(icon);
 
@@ -123,6 +124,9 @@ public class POI extends JButton{
             }
         });
     }
+    public POI( String name){
+        this.name = name;
+    }
 
     public void updatePosition(){
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
@@ -166,4 +170,6 @@ public class POI extends JButton{
     public ArrayList<String> getFavUsers() {
         return favUsers;
     }
+
+
 }

@@ -24,7 +24,7 @@ public class Layer {
     /**
      * An ArrayList of POIs that belong to this layer.
      */
-    private final ArrayList<POI> POIList;
+    public final ArrayList<POI> POIList;
     /**
      * A reference to the parent (container) JLabel of this layer.
      */
@@ -57,6 +57,15 @@ public class Layer {
         this.layerID = layerID;
         this.floorID = floorID;
         this.buildingID = buildingID;
+        this.currUser = currUser;
+        readJSON(buildingID,floorID); // Read appropriate POIs from POI.json into this Layer
+    }
+    public Layer(long buildingID, long floorID, long layerID,User currUser,JLabel map) throws IOException, ParseException {
+        this.POIList = new ArrayList<POI>();
+        this.layerID = layerID;
+        this.floorID = floorID;
+        this.buildingID = buildingID;
+        this.parent = map;
         this.currUser = currUser;
         readJSON(buildingID,floorID); // Read appropriate POIs from POI.json into this Layer
     }
