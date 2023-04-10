@@ -1,10 +1,10 @@
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.io.IOException;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LayerTest {
 
@@ -84,7 +84,7 @@ class LayerTest {
         map.setBounds(0, 0, 1920, 1080);
         mapContainer.add(map, 0);
         Layer test = new Layer(1,0,1,testUser,map);
-        
+
         test.readJSON(1,0);
         for (POI i: test.getPOIList()) {
             if (i.getName().equals("Classroom 17")){

@@ -17,7 +17,7 @@ import java.util.Iterator;
  *
  * @version 1.0
  *
- * @see
+ * @see POI
  */
 public class User {
     /** The user's username*/
@@ -29,6 +29,12 @@ public class User {
     /** A list of all POIs the user added to their favourites*/
     final ArrayList<POI> favourites;
 
+    /**
+     * Creates a new user with the given username and password.
+     *
+     * @param username The user's username.
+     * @param password The user's password.
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -51,7 +57,7 @@ public class User {
      * Creates a new POI with the user's desired details.
      *
      * 
-     *
+     * @param poi The POI to be created.
      * @see POI
      */
     public void createPOI(POI poi){

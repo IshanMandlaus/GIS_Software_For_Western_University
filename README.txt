@@ -50,4 +50,4 @@ Other useful stuff:
     1. All the images, json files, and the main program is stored under the src folder.
     2. The main.java.GUI.java file is the main file that runs the program.
     3. The main.java.GUI.java file is located in the main.java.GUI folder.
-
+    4. To access javadocs for the project, open the javadocs folder and access all the files from there.

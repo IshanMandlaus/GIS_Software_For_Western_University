@@ -5,6 +5,18 @@ import org.json.simple.parser.ParseException;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * A class representing a building that contains multiple floors, each of which contains multiple layers of Points of Interest (POIs).
+ *
+ * @author Paul Francis Jarabek Moore
+ * @author Saad Mahmood
+ *
+ * @version 1.0
+ *
+ * @see Floor
+ * @see Layer
+ * @see POI
+ */
 public class Building {
 
     /**

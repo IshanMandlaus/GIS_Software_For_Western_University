@@ -28,7 +28,6 @@ import java.util.Objects;
  *
  * @version 1.0
  *
- * @see
  */
 
 public class GUI extends JFrame{
@@ -656,6 +655,7 @@ public class GUI extends JFrame{
             HttpURLConnection con = (HttpURLConnection) url.openConnection();  // Open connection
             con.setRequestMethod("GET");  // Set request method to GET
 
+            /** Read response */
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));  // Read response
             String inputLine;  // Store response
             StringBuilder content = new StringBuilder();

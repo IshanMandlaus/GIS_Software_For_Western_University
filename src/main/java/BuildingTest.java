@@ -1,9 +1,9 @@
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 class BuildingTest {
     @Test
     public void getFloor() throws IOException, ParseException {

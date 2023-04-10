@@ -7,6 +7,20 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A class representing a layer of Points of Interest (POIs) on a floor.
+ *
+ * @author Paul Francis Jarabek Moore
+ * @author Saad Mahmood
+ *
+ * @version 1.0
+ *
+ * @see Floor
+ * @see POI
+ */
+
+
+
 public class POI extends JButton{
     private boolean builtin;
     private String name;
@@ -18,7 +32,9 @@ public class POI extends JButton{
     private Layer containingLayer;
     private ImageIcon icon;
     private String creatingUsr;
-    //private string array of users
+    /**
+     * An array of users that have favourited this POI.
+     */
     private ArrayList<String> favUsers;
     private static final int USER_CREATED = 0;
     private static final int CLASSROOM = 1;
@@ -59,7 +75,6 @@ public class POI extends JButton{
             case COLLAB -> "src/Icons/collab.png";
             default -> "src/Icons/user.png";
         };
-
 
         icon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH));
         this.setIcon(icon);
@@ -128,48 +143,114 @@ public class POI extends JButton{
         this.name = name;
     }
 
+    /**
+     * Updates the position of the POI on the floor.
+     */
     public void updatePosition(){
         this.setBounds((int) (relative_x * parent.getParent().getSize().getWidth()), (int) (relative_y * parent.getParent().getSize().getHeight()), 24, 24);
     }
+
+    /**
+     * Returns the layer that this POI is contained in.
+     * @return the layer that this POI is contained in.
+     */
     public Layer getContainingLayer() {
         return containingLayer;
     }
+
+    /**
+     * Returns the builtin.
+     * @return the builtin.
+     */
     public Boolean getBuiltin() {
         return builtin;
     }
+
+    /**
+     * Returns the name of the POI.
+     * @return the name of the POI.
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * Returns the room number of the POI.
+     * @return the room number of the POI.
+     */
     public Long getRoomNumber() {
         return roomNumber;
     }
+
+    /**
+     * Returns the description of the POI.
+     * @return the description of the POI.
+     */
     public String getDescription() {
         return description;
     }
+
+    /**
+     * Returns the building ID of the POI.
+     * @return the building ID of the POI.
+     */
     public Long getBuildingID() {
         return buildingID;
     }
+
+    /**
+     * Returns the floor ID of the POI.
+     * @return the floor ID of the POI.
+     */
     public Long getFloorID() {
         return floorID;
     }
+
+    /**
+     * Returns the layer ID of the POI.
+     * @return the layer ID of the POI.
+     */
     public Long getLayerID() {
         return layerID;
     }
+
+    /**
+     * Returns the relative x position of the POI.
+     * @return the relative x position of the POI.
+     */
     public Double getRelativeX() {
         return relative_x;
     }
+
+    /**
+     * Returns the relative y position of the POI.
+     * @return the relative y position of the POI.
+     */
     public Double getRelativeY() {
         return relative_y;
     }
+
+    /**
+     * Returns the parent JLabel of the POI.
+     * @return the parent JLabel of the POI.
+     */
     public JLabel getParent() {
         return parent;
     }
+
+    /**
+     * Returns the creating user of the POI.
+     * @return the creating user of the POI.
+     */
     public String getCreatingUsr() {
         return creatingUsr;
     }
+
+    /**
+     * Returns the favourite users of the POI.
+     * @return the favourite users of the POI.
+     */
     public ArrayList<String> getFavUsers() {
         return favUsers;
     }
-
-
 }
