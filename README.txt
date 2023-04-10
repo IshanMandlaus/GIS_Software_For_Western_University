@@ -21,12 +21,13 @@ How to build/compile CUAMPES-ACGISANT:
     6. Run the main.java.GUI.java file.
 
 How to run CUAMPES-ACGISANT (already compiled):
-    1. Open the project folder
-    2. Open the out folder
-    3. Open the artifacts folder
-    4. Open the CS2212_jar folder
-    5. Open the CS2212.jar file
-    6. Run the CS2212.jar file
+    1. Set the project directory in the IDE as shown in the zip file
+    2. Open the project folder
+    3. Open the out folder
+    4. Open the artifacts folder
+    5. Open the CS2212_jar folder
+    6. Open the CS2212.jar file
+    7. Run the CS2212.jar file
 
 User guide:
     1. The main.java.GUI will open.
