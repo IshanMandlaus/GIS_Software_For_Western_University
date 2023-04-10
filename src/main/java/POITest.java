@@ -148,8 +148,8 @@ class POITest {
         Layer testLayer = new Layer(0,1,3,map,new User("saad","1"));
         POI poi = new POI(true,"The Grad Club",19,"The restaurant in the basement of middlesex",1,0,3,0.49860413176996093,0.30539499036608864,map,"saad",favUsers,testLayer);
         double x = poi.getRelativeX();
-        double expected = 0.49860413176996093;
-        assertEquals(x, expected);
+        double exptd = 0.49860413176996093;
+        assertEquals(x, exptd);
     }
 
     @Test
