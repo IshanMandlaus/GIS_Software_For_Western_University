@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * The class that represents the GUI for the CUAMPES-ACGISANT application. It allows a user to login, view maps,
+ * The class that represents the GUI for the CUAMPES-ACGISANT application. It allows a user to login, view maps and
+ * save personal information.
  *
  * @author Paul Francis Jarabek Moore
  * @author Muhammad Ansari
@@ -90,6 +91,7 @@ public class GUI extends JFrame{
     private JLabel weatherIcon;
     private JTextField searchText;
     private JButton searchButton;
+    private JCheckBox favToggle;
     private JLabel poiCreationLocationPrompt;
     public static User currUser;
     private static final String mapPanelCardName = "mapPanel";
@@ -619,6 +621,23 @@ public class GUI extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 highlightSelectedPOI();
+            }
+        });
+        favToggle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (favToggle.isSelected()) {
+                    for (Building b : buildings) {
+                        for (Floor f : b.getFloors()) {
+                            for (Layer l : f.getLayers()){
+                                for (POI p : l.getPOIList()){
+                                    if (p.getFavUsers().isEmpty() == false) {
+                                        p.setVisible(true);
+                                    }
+                                }
+                        }
+                    }
+                }
             }
         });
     }
