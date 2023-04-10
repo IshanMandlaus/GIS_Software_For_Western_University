@@ -25,9 +25,9 @@ public class User {
     /** The user's password*/
     private final String password;
     /** A list of all POIs created by the user*/
-    private final ArrayList<POI> pointsOfInterest;
+    final ArrayList<POI> pointsOfInterest;
     /** A list of all POIs the user added to their favourites*/
-    private final ArrayList<POI> favourites;
+    final ArrayList<POI> favourites;
 
     public User(String username, String password) {
         this.username = username;
